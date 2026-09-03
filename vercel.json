@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/Tat%20Sat%20Yoga.dc.html"
+    }
+  ]
+}
