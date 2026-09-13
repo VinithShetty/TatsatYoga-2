@@ -1,5 +1,5 @@
 import React from 'react';
-import ImageSlot from './ImageSlot';
+import Image from 'next/image';
 import Reveal from './Reveal';
 
 export default function BrandIntro() {
@@ -25,7 +25,13 @@ export default function BrandIntro() {
             <circle cx="170" cy="170" r="4" fill="#B8965A"></circle>
           </svg>
           <div style={{ position: 'absolute', inset: 60, borderRadius: '50%', overflow: 'hidden' }}>
-            <ImageSlot id="intro-photo" shape="circle" placeholder="Close-up: mindful movement" />
+            <Image
+              src="/images/circle.jpg"
+              alt="Woman practicing yoga on a mat beside a calm lake"
+              fill
+              sizes="220px"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+            />
           </div>
         </div>
         </div>

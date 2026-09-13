@@ -1,6 +1,6 @@
 import Hero from '@/components/Hero';
 import BrandIntro from '@/components/BrandIntro';
-import ImageSlot from '@/components/ImageSlot';
+import Image from 'next/image';
 import Reveal from '@/components/Reveal';
 import Classes from '@/components/Classes';
 import Schedule from '@/components/Schedule';
@@ -14,8 +14,14 @@ function AboutTeaser() {
       <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', gap: 72, alignItems: 'center' }} className="tsy-split">
         <Reveal style={{ flex: 1, minWidth: 280 }}>
           <div>
-          <div style={{ width: '100%', aspectRatio: '3/4', borderRadius: 20, overflow: 'hidden', maxWidth: 420 }}>
-            <ImageSlot id="teacher-photo" shape="rect" placeholder="Teacher portrait, natural light" />
+          <div style={{ position: 'relative', width: '100%', aspectRatio: '3/4', borderRadius: 20, overflow: 'hidden', maxWidth: 420 }}>
+            <Image
+              src="/images/story.jpg"
+              alt="Teacher meditating in front of an ancient temple doorway"
+              fill
+              sizes="(max-width: 860px) 100vw, 420px"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+            />
           </div>
           </div>
         </Reveal>

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { navItems } from '@/lib/data';
 
@@ -35,9 +36,14 @@ export default function Header({ scrolled, mobileOpen, onToggleMobile, onOpenBoo
   return (
     <header style={headerStyle}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 32px', height: 84, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <a href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'baseline', gap: 8, whiteSpace: 'nowrap', flexShrink: 0 }} aria-label="Tat Sat Yoga home">
-          <span style={{ fontFamily: "'Newsreader',serif", fontSize: 24, fontWeight: 500, color: headerTextColor, letterSpacing: '.5px' }}>tat sat</span>
-          <span style={{ fontSize: 10, letterSpacing: 3, color: headerSubTextColor, fontWeight: 500 }}>YOGA</span>
+        <a href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, whiteSpace: 'nowrap', flexShrink: 0 }} aria-label="Tat Sat Yoga home">
+          <span style={{ display: 'block', width: 54, height: 54, borderRadius: '50%', overflow: 'hidden', border: '1px solid rgba(51,64,31,0.14)', flexShrink: 0 }}>
+            <Image src="/images/logo.png" alt="Tat Sat Yoga logo" width={54} height={54} style={{ objectFit: 'cover', display: 'block' }} />
+          </span>
+          <span style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+            <span style={{ fontFamily: "'Newsreader',serif", fontSize: 24, fontWeight: 500, color: headerTextColor, letterSpacing: '.5px' }}>tat sat</span>
+            <span style={{ fontSize: 10, letterSpacing: 3, color: headerSubTextColor, fontWeight: 500 }}>YOGA</span>
+          </span>
         </a>
         <nav className="tsy-nav-links" aria-label="Primary" style={{ display: 'flex', gap: 22, alignItems: 'center', flexWrap: 'nowrap', minWidth: 0 }}>
           {navItems.map((item) => (

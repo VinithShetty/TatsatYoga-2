@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { contact, navItems, socials } from '@/lib/data';
 
 export default function Footer() {
@@ -8,6 +9,9 @@ export default function Footer() {
     <footer id="footer" style={{ background: '#33401F', color: '#DED1B4', padding: '80px 32px 40px' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', justifyContent: 'space-between', gap: 48, flexWrap: 'wrap', paddingBottom: 48, borderBottom: '1px solid rgba(222,209,180,0.15)' }}>
         <div style={{ maxWidth: 280 }}>
+          <div style={{ width: 72, height: 72, borderRadius: '50%', overflow: 'hidden', marginBottom: 16, border: '1px solid rgba(222,209,180,0.25)' }}>
+            <Image src="/images/logo.png" alt="Tat Sat Yoga logo" width={72} height={72} style={{ objectFit: 'cover', display: 'block' }} />
+          </div>
           <div style={{ fontFamily: "'Newsreader',serif", fontSize: 24, color: '#FBF7EE', marginBottom: 6 }}>
             tat sat <span style={{ fontSize: 11, letterSpacing: 2, color: '#DED1B4' }}>YOGA</span>
           </div>

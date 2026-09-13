@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import ImageSlot from './ImageSlot';
+import Image from 'next/image';
 import Reveal from './Reveal';
 import { useBooking } from '@/lib/booking-context';
 
@@ -35,7 +35,14 @@ export default function Hero() {
       <Reveal style={{ flex: 1, minWidth: 320, position: 'relative' }} delay={150} y={30}>
         <div>
         <div style={{ position: 'relative', width: '100%', aspectRatio: '4/5', borderRadius: 24, overflow: 'hidden' }}>
-          <ImageSlot id="hero-photo" shape="rect" placeholder="Peaceful yoga practice, soft natural light" />
+          <Image
+            src="/images/hero.png"
+            alt="Woman meditating in a flower garden during yoga practice"
+            fill
+            priority
+            sizes="(max-width: 860px) 100vw, 50vw"
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+          />
         </div>
         <svg width="90" height="90" viewBox="0 0 90 90" style={{ position: 'absolute', right: -30, bottom: -30, opacity: 0.55 }}>
           <circle cx="45" cy="45" r="43" fill="none" stroke="#556B2F" strokeWidth="1"></circle>
