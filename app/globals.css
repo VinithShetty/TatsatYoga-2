@@ -1,0 +1,73 @@
+body{margin:0;background:#FBF7EE}
+*{box-sizing:border-box}
+::selection{background:#DED1B4}
+.tsy-link{transition:opacity .25s ease}
+.tsy-link:hover{opacity:.65}
+.tsy-cta{transition:transform .25s ease, background .25s ease}
+.tsy-cta:hover{transform:translateY(-2px)}
+.tsy-card{transition:box-shadow .3s ease, transform .3s ease}
+.tsy-card:hover{box-shadow:0 12px 32px rgba(51,64,31,0.10);transform:translateY(-3px)}
+.tsy-imgwrap{overflow:hidden}
+.tsy-imgwrap .tsy-slot{transition:transform .6s ease}
+.tsy-card:hover .tsy-imgwrap .tsy-slot{transform:scale(1.06)}
+a{color:#556B2F}
+a:hover{color:#3F5122}
+html{scroll-behavior:smooth}
+/* ---- Relaxing scroll + entrance motion ---- */
+.tsy-reveal{opacity:0;transform:translateY(var(--tsy-y,28px));transition:opacity 1s cubic-bezier(.22,.61,.36,1),transform 1s cubic-bezier(.22,.61,.36,1)}
+.tsy-reveal.is-visible{opacity:1;transform:translateY(0)}
+.tsy-modal-pop{animation:tsyPop .38s cubic-bezier(.22,.61,.36,1)}
+.tsy-modal-fade{animation:tsyFade .28s ease}
+.tsy-menu-drop{animation:tsyDrop .32s cubic-bezier(.22,.61,.36,1);transform-origin:top center}
+.tsy-breathe{animation:tsyBreathe 7s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes tsyPop{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes tsyFade{from{opacity:0}to{opacity:1}}
+@keyframes tsyDrop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes tsyBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@media (prefers-reduced-motion:reduce){
+  .tsy-reveal{opacity:1 !important;transform:none !important;transition:none !important}
+  .tsy-modal-pop,.tsy-modal-fade,.tsy-menu-drop,.tsy-breathe{animation:none !important}
+  html{scroll-behavior:auto}
+}
+@media (max-width: 1240px){
+  .tsy-nav-links{display:none !important}
+  .tsy-mobile-btn{display:flex !important}
+}
+@media (max-width: 860px){
+  .tsy-hide-mobile{display:none !important}
+  .tsy-split{flex-direction:column !important}
+  .tsy-split > div{width:100% !important}
+  .tsy-grid8{grid-template-columns:1fr 1fr !important}
+  .tsy-grid4{grid-template-columns:1fr 1fr !important}
+  .tsy-grid6{grid-template-columns:1fr 1fr !important}
+  .tsy-hero-h1{font-size:52px !important}
+  .tsy-section-h2{font-size:34px !important}
+}
+/* ---- Button hover effects ---- */
+.tsy-btn-primary{transition:transform .25s ease,background .25s ease,box-shadow .25s ease !important}
+.tsy-btn-primary:hover:not(:disabled){background:#3F5122 !important;transform:translateY(-2px);box-shadow:0 10px 24px rgba(51,64,31,.28)}
+.tsy-btn-primary:active:not(:disabled){transform:translateY(0) scale(.98);box-shadow:0 4px 12px rgba(51,64,31,.20)}
+.tsy-btn-outline{transition:transform .25s ease,background .3s ease,color .3s ease,box-shadow .25s ease !important}
+.tsy-btn-outline:hover{background:#33401F !important;color:#FBF7EE !important;transform:translateY(-2px);box-shadow:0 10px 24px rgba(51,64,31,.18)}
+.tsy-btn-outline:active{transform:translateY(0) scale(.98)}
+.tsy-btn-small{transition:transform .2s ease,filter .2s ease}
+.tsy-btn-small:hover:not(:disabled){filter:brightness(.93);transform:translateY(-1px)}
+.tsy-btn-small:active:not(:disabled){transform:translateY(0) scale(.98)}
+.tsy-pick{transition:border-color .2s ease,background .2s ease,transform .2s ease}
+.tsy-pick:not(.is-selected):hover{border-color:#556B2F !important;background:rgba(85,107,47,.07) !important;transform:translateY(-1px)}
+.tsy-view{transition:color .2s ease}
+.tsy-view:hover{color:#3F5122 !important}
+.tsy-view .tsy-arrow{display:inline-block;transition:transform .25s ease}
+.tsy-view:hover .tsy-arrow{transform:translateX(5px)}
+.tsy-icon-btn{transition:background .2s ease,transform .3s ease}
+.tsy-icon-btn:hover{background:rgba(51,64,31,.12) !important;transform:rotate(90deg)}
+.tsy-back{transition:color .2s ease,transform .2s ease}
+.tsy-back:hover{color:#3F5122 !important;transform:translateX(-3px)}
+.tsy-social{transition:background .25s ease,transform .25s ease !important}
+.tsy-social:hover{background:rgba(222,209,180,.14) !important;transform:translateY(-2px)}
+button:focus-visible,a:focus-visible{outline:2px solid #556B2F;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){
+  .tsy-btn-primary,.tsy-btn-outline,.tsy-btn-small,.tsy-pick,.tsy-view .tsy-arrow,.tsy-icon-btn,.tsy-back,.tsy-social{transition:none !important}
+  .tsy-btn-primary:hover:not(:disabled),.tsy-btn-outline:hover,.tsy-btn-small:hover:not(:disabled){transform:none;box-shadow:none}
+  .tsy-view:hover .tsy-arrow,.tsy-icon-btn:hover,.tsy-back:hover{transform:none}
+}

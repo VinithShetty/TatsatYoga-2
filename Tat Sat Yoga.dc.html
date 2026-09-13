@@ -101,8 +101,12 @@
   <!-- BRAND INTRO -->
   <section data-screen-label="Brand Intro" style="max-width:1280px;margin:0 auto;padding:80px 32px;display:flex;gap:72px;align-items:center" class="tsy-split">
     <div style="flex:1;min-width:320px">
-      <h2 class="tsy-section-h2" style="font-family:'Newsreader',serif;font-size:44px;font-weight:500;margin:0 0 24px;color:#33401F">Come Back to Yourself.</h2>
-      <p style="font-size:17px;line-height:1.8;color:#5B5A45;max-width:440px;margin:0 0 32px">Yoga is not about perfection. It is about creating awareness through movement, breath and presence &mdash; one honest practice at a time. At Tat Sat Yoga, every session is an invitation to notice, soften and return to yourself.</p>
+      <h2 class="tsy-section-h2" style="font-family:'Newsreader',serif;font-size:44px;font-weight:500;margin:0 0 24px;color:#33401F">Core Philosophy</h2>
+      <p style="font-size:17px;line-height:1.8;color:#5B5A45;max-width:440px;margin:0 0 20px"><em style="font-style:italic;color:#556B2F">Yoga is not about perfection. It is about presence.</em></p>
+      <p style="font-size:17px;line-height:1.8;color:#5B5A45;max-width:440px;margin:0 0 20px">At its heart, yoga is a practice of returning &mdash; to the breath, to the body, and ultimately, to the self. It creates space to slow down, listen inward and cultivate a deeper sense of awareness.</p>
+      <p style="font-size:17px;line-height:1.8;color:#5B5A45;max-width:440px;margin:0 0 20px">Tat Sat Yoga embraces the idea that every body has its own rhythm and every journey its own pace. Through movement, breath and stillness, the practice nurtures strength, flexibility, balance and inner calm &mdash; both on and beyond the mat.</p>
+      <p style="font-size:17px;line-height:1.8;color:#5B5A45;max-width:440px;margin:0 0 20px">A practice not to become more, but to become more aware of what already is.</p>
+      <p style="font-size:17px;line-height:1.8;color:#5B5A45;max-width:440px;margin:0 0 32px">Tat Sat Yoga is an invitation to slow down, breathe deeply and meet yourself where you are.<br>I hope to walk beside you on this path of yoga &mdash; one breath, one movement and one moment of awareness at a time.</p>
       <a href="#about" class="tsy-link" style="text-decoration:none;color:#556B2F;font-weight:600;font-size:15px;border-bottom:1px solid #556B2F;padding-bottom:4px">Discover Our Approach</a>
     </div>
     <div style="flex:1;min-width:280px;display:flex;align-items:center;justify-content:center">
@@ -128,11 +132,14 @@
         </div>
       </div>
       <div style="flex:1;min-width:320px">
-        <p style="font-size:13px;letter-spacing:3px;color:#8A7B4E;font-weight:600;margin:0 0 16px">MEET YOUR TEACHER</p>
+        <p style="font-size:13px;letter-spacing:3px;color:#8A7B4E;font-weight:600;margin:0 0 16px">MY STORY</p>
         <h2 class="tsy-section-h2" style="font-family:'Newsreader',serif;font-size:40px;font-weight:500;margin:0 0 20px;color:#33401F">{{ teacher.name }}</h2>
-        <p style="font-size:15px;color:#556B2F;font-weight:500;margin:0 0 24px">{{ teacher.credentials }}</p>
-        <p style="font-family:'Newsreader',serif;font-style:italic;font-size:20px;line-height:1.6;color:#33401F;margin:0 0 24px;max-width:460px">&ldquo;Yoga is more than a practice on the mat. It is an invitation to slow down, listen to your body and reconnect with yourself.&rdquo;</p>
-        <p style="font-size:16px;line-height:1.8;color:#5B5A45;max-width:460px;margin:0 0 32px">{{ teacher.bio }}</p>
+        <p style="font-family:'Newsreader',serif;font-style:italic;font-size:20px;line-height:1.6;color:#33401F;margin:0 0 24px;max-width:460px">&ldquo;{{ teacher.quote }}&rdquo;</p>
+        <p style="font-size:16px;line-height:1.8;color:#5B5A45;max-width:460px;margin:0 0 16px">{{ teacher.story }}</p>
+        <p style="font-size:16px;line-height:1.8;color:#5B5A45;max-width:460px;margin:0 0 16px">{{ teacher.credentials }}</p>
+        <p style="font-size:16px;line-height:1.8;color:#5B5A45;max-width:460px;margin:0 0 12px;font-weight:600;color:#33401F">About my teaching:</p>
+        <p style="font-size:16px;line-height:1.8;color:#5B5A45;max-width:460px;margin:0 0 16px">{{ teacher.teaching }}</p>
+        <p style="font-size:16px;line-height:1.8;color:#5B5A45;max-width:460px;margin:0 0 32px">{{ teacher.approach }}</p>
         <a href="#contact" class="tsy-link" style="text-decoration:none;color:#556B2F;font-weight:600;font-size:15px;border-bottom:1px solid #556B2F;padding-bottom:4px">Learn More About Me</a>
       </div>
     </div>
@@ -145,7 +152,7 @@
       <h2 class="tsy-section-h2" style="font-family:'Newsreader',serif;font-size:44px;font-weight:500;margin:0;color:#33401F">Find Your Practice</h2>
     </div>
     <div class="tsy-grid8" style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px">
-      <sc-for list="{{ classes }}" as="cls" hint-placeholder-count="8">
+      <sc-for list="{{ classes }}" as="cls" hint-placeholder-count="9">
         <div class="tsy-card" style="background:#fff;border:1px solid rgba(51,64,31,0.10);border-radius:18px;overflow:hidden;display:flex;flex-direction:column">
           <div class="tsy-imgwrap" style="width:100%;aspect-ratio:4/3">
             <image-slot id="{{ cls.slotId }}" shape="rect" placeholder="{{ cls.name }}"></image-slot>
@@ -163,20 +170,71 @@
     </div>
   </section>
 
-  <!-- GUIDE -->
-  <section data-screen-label="Class Guide" style="background:#556B2F;padding:100px 32px">
-    <div style="max-width:1000px;margin:0 auto;text-align:center">
-      <p style="font-size:13px;letter-spacing:3px;color:#C9D19A;font-weight:600;margin:0 0 16px">A LITTLE GUIDANCE</p>
-      <h2 class="tsy-section-h2" style="font-family:'Newsreader',serif;font-size:40px;font-weight:500;margin:0 0 48px;color:#FBF7EE">Not Sure Where to Start?</h2>
-      <div style="display:flex;flex-direction:column;gap:14px;max-width:640px;margin:0 auto">
-        <sc-for list="{{ guideChoices }}" as="choice" hint-placeholder-count="5">
-          <button onClick="{{ choice.onClick }}" style="{{ choice.style }}text-align:left;border:1px solid rgba(251,247,238,0.28);background:rgba(251,247,238,0.06);border-radius:14px;padding:20px 24px;cursor:pointer;font-family:'Work Sans',sans-serif;display:flex;justify-content:space-between;align-items:center;gap:16px">
-            <span style="color:#FBF7EE;font-size:16px">{{ choice.q }}</span>
-            <sc-if value="{{ choice.active }}" hint-placeholder-val="{{ false }}">
-              <span style="color:#DED1B4;font-size:13px;font-weight:600;white-space:nowrap">&rarr; {{ choice.a }}</span>
-            </sc-if>
-          </button>
-        </sc-for>
+  <!-- PRICING -->
+  <section id="pricing" data-screen-label="Pricing" style="background:#F3EDDF;padding:110px 32px">
+    <div style="max-width:1120px;margin:0 auto">
+      <div style="text-align:center;max-width:640px;margin:0 auto 64px">
+        <p style="font-size:13px;letter-spacing:3px;color:#8A7B4E;font-weight:600;margin:0 0 16px">CLASS FORMAT &amp; PRICES</p>
+        <h2 class="tsy-section-h2" style="font-family:'Newsreader',serif;font-size:44px;font-weight:500;margin:0;color:#33401F">Find What Works for You.</h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px" class="tsy-grid6">
+        <!-- Online 1:1 -->
+        <div style="background:#FBF7EE;border-radius:18px;padding:36px 28px;border:1px solid rgba(51,64,31,0.08)">
+          <p style="font-size:12px;letter-spacing:2px;color:#8A7B4E;font-weight:600;margin:0 0 10px">ONLINE 1:1 YOGA SESSIONS</p>
+          <h3 style="font-family:'Newsreader',serif;font-size:24px;font-weight:500;margin:0 0 14px;color:#33401F">Personal Yoga (1 Hour)</h3>
+          <p style="font-size:14px;line-height:1.7;color:#6B6A54;margin:0 0 24px">Personalised yoga sessions tailored to individual needs, goals and fitness levels. Each session focuses on mindful movement, strength, flexibility, mobility and breathwork, with modifications and guidance to support your unique journey.</p>
+          <div style="border-top:1px solid rgba(51,64,31,0.10);padding-top:20px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:14px;color:#33401F;font-weight:500">5 days a week</span>
+              <span style="font-family:'Newsreader',serif;font-size:22px;color:#556B2F;font-weight:500">5000/month</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:14px;color:#33401F;font-weight:500">3 days a week</span>
+              <span style="font-family:'Newsreader',serif;font-size:22px;color:#556B2F;font-weight:500">3000/month</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Online Group -->
+        <div style="background:#FBF7EE;border-radius:18px;padding:36px 28px;border:1px solid rgba(51,64,31,0.08)">
+          <p style="font-size:12px;letter-spacing:2px;color:#8A7B4E;font-weight:600;margin:0 0 10px">ONLINE GROUP YOGA SESSIONS</p>
+          <h3 style="font-family:'Newsreader',serif;font-size:24px;font-weight:500;margin:0 0 14px;color:#33401F">Group Classes (1 Hour)</h3>
+          <p style="font-size:14px;line-height:1.7;color:#6B6A54;margin:0 0 24px">Live, interactive yoga sessions for overall wellness that bring mindful movement, strength, flexibility and breathwork into a shared practice. Suitable for different levels, with guided modifications to help each participant practice safely and comfortably from home.</p>
+          <div style="border-top:1px solid rgba(51,64,31,0.10);padding-top:20px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:14px;color:#33401F;font-weight:500">5 days a week</span>
+              <span style="font-family:'Newsreader',serif;font-size:22px;color:#556B2F;font-weight:500">2000/month</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:14px;color:#33401F;font-weight:500">3 days a week</span>
+              <span style="font-family:'Newsreader',serif;font-size:22px;color:#556B2F;font-weight:500">1500/month</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Senior Citizens -->
+        <div style="background:#FBF7EE;border-radius:18px;padding:36px 28px;border:1px solid rgba(51,64,31,0.08)">
+          <p style="font-size:12px;letter-spacing:2px;color:#8A7B4E;font-weight:600;margin:0 0 10px">SENIOR CITIZENS CHAIR YOGA</p>
+          <h3 style="font-family:'Newsreader',serif;font-size:24px;font-weight:500;margin:0 0 14px;color:#33401F">Chair Yoga (30 Mins)</h3>
+          <p style="font-size:14px;line-height:1.7;color:#6B6A54;margin:0 0 24px">A gentle, accessible practice designed to improve mobility, balance, flexibility and strength while promoting relaxation and overall well-being.</p>
+          <div style="border-top:1px solid rgba(51,64,31,0.10);padding-top:20px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:14px;color:#33401F;font-weight:500">5 days a week</span>
+              <span style="font-family:'Newsreader',serif;font-size:22px;color:#556B2F;font-weight:500">1500/month</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:14px;color:#33401F;font-weight:500">3 days a week</span>
+              <span style="font-family:'Newsreader',serif;font-size:22px;color:#556B2F;font-weight:500">1000/month</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Free Trial -->
+      <div style="margin-top:48px;text-align:center;background:#FBF7EE;border-radius:18px;padding:36px 28px;border:1px solid rgba(51,64,31,0.08)">
+        <h3 style="font-family:'Newsreader',serif;font-size:22px;font-weight:500;margin:0 0 12px;color:#33401F">1 Free Trial Session included with every format.</h3>
+        <p style="font-size:15px;line-height:1.7;color:#6B6A54;max-width:600px;margin:0 auto">Begin your journey with one complimentary trial session. Experience the practice, understand the approach and discover what works best for your body and needs.</p>
       </div>
     </div>
   </section>
@@ -215,69 +273,6 @@
     </div>
   </section>
 
-  <!-- BENEFITS -->
-  <section data-screen-label="Benefits" style="max-width:1280px;margin:0 auto;padding:110px 32px 80px">
-    <div style="text-align:center;max-width:640px;margin:0 auto 64px">
-      <p style="font-size:13px;letter-spacing:3px;color:#8A7B4E;font-weight:600;margin:0 0 16px">WHY PRACTICE</p>
-      <h2 class="tsy-section-h2" style="font-family:'Newsreader',serif;font-size:44px;font-weight:500;margin:0;color:#33401F">More Than Movement.</h2>
-    </div>
-    <div class="tsy-grid6" style="display:grid;grid-template-columns:repeat(3,1fr);gap:44px 40px">
-      <sc-for list="{{ benefits }}" as="b" hint-placeholder-count="6">
-        <div>
-          <div style="font-family:'Newsreader',serif;font-size:32px;color:#DED1B4;font-weight:500;margin:0 0 12px">{{ b.n }}</div>
-          <h3 style="font-size:18px;font-weight:600;margin:0 0 10px;color:#33401F">{{ b.t }}</h3>
-          <p style="font-size:14px;line-height:1.7;color:#6B6A54;margin:0;max-width:280px">{{ b.d }}</p>
-        </div>
-      </sc-for>
-    </div>
-  </section>
-
-  <!-- WHY TAT SAT -->
-  <section data-screen-label="Why Tat Sat" style="background:#DED1B4;padding:110px 32px">
-    <div style="max-width:1120px;margin:0 auto">
-      <div style="text-align:center;max-width:640px;margin:0 auto 64px">
-        <p style="font-size:13px;letter-spacing:3px;color:#6B5B33;font-weight:600;margin:0 0 16px">WHY TAT SAT YOGA</p>
-        <h2 class="tsy-section-h2" style="font-family:'Newsreader',serif;font-size:40px;font-weight:500;margin:0;color:#33401F">A Practice That Meets You Where You Are.</h2>
-      </div>
-      <div class="tsy-grid4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px">
-        <sc-for list="{{ principles }}" as="p" hint-placeholder-count="4">
-          <div style="background:#FBF7EE;border-radius:18px;padding:32px 26px">
-            <svg width="30" height="30" viewBox="0 0 30 30" style="margin-bottom:18px"><circle cx="15" cy="15" r="13" fill="none" stroke="#556B2F" stroke-width="1.3"></circle></svg>
-            <h3 style="font-size:17px;font-weight:600;margin:0 0 10px;color:#33401F">{{ p.t }}</h3>
-            <p style="font-size:13.5px;line-height:1.65;color:#6B6A54;margin:0">{{ p.d }}</p>
-          </div>
-        </sc-for>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section id="testimonials" data-screen-label="Testimonials" style="max-width:1280px;margin:0 auto;padding:110px 32px 80px">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:48px;flex-wrap:wrap;gap:20px">
-      <h2 class="tsy-section-h2" style="font-family:'Newsreader',serif;font-size:40px;font-weight:500;margin:0;color:#33401F">What Our Students Say</h2>
-      <div style="display:flex;gap:10px">
-        <button onClick="{{ prevTestimonial }}" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(51,64,31,0.2);background:none;cursor:pointer;font-size:16px;color:#33401F">&larr;</button>
-        <button onClick="{{ nextTestimonial }}" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(51,64,31,0.2);background:none;cursor:pointer;font-size:16px;color:#33401F">&rarr;</button>
-      </div>
-    </div>
-    <div style="display:flex;gap:24px;overflow:hidden">
-      <sc-for list="{{ visibleTestimonials }}" as="t" hint-placeholder-count="3">
-        <div style="flex:1;min-width:0;background:#F3EDDF;border-radius:18px;padding:32px 28px;display:flex;flex-direction:column;gap:20px">
-          <p style="font-family:'Newsreader',serif;font-style:italic;font-size:18px;line-height:1.6;color:#33401F;margin:0">&ldquo;{{ t.quote }}&rdquo;</p>
-          <div style="display:flex;align-items:center;gap:12px;margin-top:auto">
-            <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0">
-              <image-slot id="{{ t.slotId }}" shape="circle" placeholder="Photo"></image-slot>
-            </div>
-            <div>
-              <div style="font-weight:600;font-size:14px;color:#33401F">{{ t.name }}</div>
-              <div style="font-size:12.5px;color:#8A7B4E">{{ t.cls }}</div>
-            </div>
-          </div>
-        </div>
-      </sc-for>
-    </div>
-  </section>
-
   <!-- PHILOSOPHY QUOTE -->
   <section data-screen-label="Philosophy" style="padding:140px 32px;text-align:center">
     <svg width="60" height="60" viewBox="0 0 60 60" style="margin-bottom:32px"><path d="M 52 30 A 22 22 0 1 1 27 8.5" fill="none" stroke="#B8965A" stroke-width="1.4" stroke-linecap="round"></path></svg>
@@ -296,6 +291,31 @@
           <image-slot id="{{ s }}" shape="rect" placeholder="@tatsatyoga"></image-slot>
         </div>
       </sc-for>
+    </div>
+  </section>
+
+  <!-- COLLABORATIONS -->
+  <section data-screen-label="Collaborations" style="max-width:1280px;margin:0 auto;padding:110px 32px 80px">
+    <div style="text-align:center;max-width:640px;margin:0 auto 64px">
+      <p style="font-size:13px;letter-spacing:3px;color:#8A7B4E;font-weight:600;margin:0 0 16px">COLLABORATIONS &amp; FUTURE PLANS</p>
+      <h2 class="tsy-section-h2" style="font-family:'Newsreader',serif;font-size:44px;font-weight:500;margin:0;color:#33401F">Growing Together.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:960px;margin:0 auto" class="tsy-grid6">
+      <div style="background:#F3EDDF;border-radius:18px;padding:32px 26px;text-align:center">
+        <svg width="30" height="30" viewBox="0 0 30 30" style="margin-bottom:18px"><circle cx="15" cy="15" r="13" fill="none" stroke="#556B2F" stroke-width="1.3"></circle></svg>
+        <h3 style="font-size:17px;font-weight:600;margin:0 0 10px;color:#33401F">Brand Partnerships</h3>
+        <p style="font-size:13.5px;line-height:1.65;color:#6B6A54;margin:0">Open to collaboration and brand partnership opportunities.</p>
+      </div>
+      <div style="background:#F3EDDF;border-radius:18px;padding:32px 26px;text-align:center">
+        <svg width="30" height="30" viewBox="0 0 30 30" style="margin-bottom:18px"><circle cx="15" cy="15" r="13" fill="none" stroke="#556B2F" stroke-width="1.3"></circle></svg>
+        <h3 style="font-size:17px;font-weight:600;margin:0 0 10px;color:#33401F">Corporate Wellness</h3>
+        <p style="font-size:13.5px;line-height:1.65;color:#6B6A54;margin:0">Corporate wellness workshops and wellness retreats.</p>
+      </div>
+      <div style="background:#F3EDDF;border-radius:18px;padding:32px 26px;text-align:center">
+        <svg width="30" height="30" viewBox="0 0 30 30" style="margin-bottom:18px"><circle cx="15" cy="15" r="13" fill="none" stroke="#556B2F" stroke-width="1.3"></circle></svg>
+        <h3 style="font-size:17px;font-weight:600;margin:0 0 10px;color:#33401F">Prerecorded Sessions</h3>
+        <p style="font-size:13.5px;line-height:1.65;color:#6B6A54;margin:0">Prerecorded sessions coming soon for flexible, on-demand practice.</p>
+      </div>
     </div>
   </section>
 
@@ -370,7 +390,7 @@
             <p style="font-size:12px;letter-spacing:2px;color:#8A7B4E;font-weight:600;margin:0 0 8px">STEP 1 OF 4</p>
             <h3 style="font-family:'Newsreader',serif;font-size:26px;font-weight:500;margin:0 0 22px;color:#33401F">Choose a class</h3>
             <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:26px">
-              <sc-for list="{{ bookingClasses }}" as="c" hint-placeholder-count="8">
+              <sc-for list="{{ bookingClasses }}" as="c" hint-placeholder-count="9">
                 <button onClick="{{ c.onClick }}" style="{{ c.style }}text-align:left;border-radius:12px;padding:14px 18px;cursor:pointer;font-family:'Work Sans',sans-serif;font-size:14.5px">{{ c.name }}</button>
               </sc-for>
             </div>
@@ -434,8 +454,6 @@ class Component extends DCLogic {
     scrolled: false,
     mobileOpen: false,
     scheduleFilter: 'All',
-    testimonialStart: 0,
-    activeGuide: null,
     booking: {
       open: false, step: 1, success: false, loading: false,
       cls: null, date: null, time: null,
@@ -453,55 +471,25 @@ class Component extends DCLogic {
   openBookingMobile = () => { this.setState({ mobileOpen: false }); this.openBooking(); };
 
   classesData = [
-    { name: 'Hatha Yoga', desc: 'Slow, deliberate postures held with breath awareness.', level: 'All Levels', duration: '60 min', format: 'Studio', slotId: 'cls-hatha' },
-    { name: 'Vinyasa Flow', desc: 'Breath-linked movement that builds heat and focus.', level: 'Intermediate', duration: '60 min', format: 'Studio', slotId: 'cls-vinyasa' },
-    { name: 'Beginner Yoga', desc: 'A gentle introduction to alignment, breath and basic postures.', level: 'Beginner', duration: '45 min', format: 'Studio', slotId: 'cls-beginner' },
-    { name: 'Meditation', desc: 'Guided stillness practice to quiet and settle the mind.', level: 'All Levels', duration: '30 min', format: 'Studio', slotId: 'cls-meditation' },
-    { name: 'Breathwork', desc: 'Pranayama techniques to regulate the nervous system.', level: 'All Levels', duration: '30 min', format: 'Studio', slotId: 'cls-breathwork' },
-    { name: 'Personal Yoga', desc: 'One-on-one sessions tailored to your body and goals.', level: 'All Levels', duration: '60 min', format: '1:1', slotId: 'cls-personal' },
-    { name: 'Group Yoga', desc: 'Small group sessions for shared motivation and connection.', level: 'All Levels', duration: '60 min', format: 'Group', slotId: 'cls-group' },
-    { name: 'Online Yoga', desc: 'Live-streamed classes you can join from anywhere.', level: 'All Levels', duration: '45 min', format: 'Online', slotId: 'cls-online' }
-  ];
-
-  guideData = [
-    { q: "I'm completely new to yoga", a: 'Beginner Yoga' },
-    { q: "I'm looking for movement & strength", a: 'Vinyasa Flow' },
-    { q: 'I want to reduce stress', a: 'Breathwork' },
-    { q: 'I want a deeper practice', a: 'Hatha Yoga' },
-    { q: 'I prefer a personal session', a: 'Personal Yoga' }
+    { name: 'Hatha Yoga', desc: 'A traditional and mindful approach to yoga that combines asana, breath and awareness. Hatha builds strength, stability, flexibility and body awareness while creating a steady, grounded practice.', level: 'All Levels', duration: '60 min', format: 'Online', slotId: 'cls-hatha' },
+    { name: 'Vinyasa Yoga', desc: 'A dynamic, flowing practice where movement and breath move together. Vinyasa builds strength, mobility, balance and stamina while creating a moving meditation through mindful sequences.', level: 'All Levels', duration: '60 min', format: 'Online', slotId: 'cls-vinyasa' },
+    { name: 'Yin Yoga', desc: 'A slow, meditative practice focused on deep relaxation, mobility and releasing tension. Postures are held for longer periods, allowing the body to gently open while cultivating patience, stillness and awareness.', level: 'All Levels', duration: '60 min', format: 'Online', slotId: 'cls-yin' },
+    { name: 'Pranayama (Breathwork)', desc: 'Conscious breathing practices that help develop breath awareness, nervous-system regulation and mental clarity. Suitable techniques are incorporated to support relaxation, focus, energy and emotional balance.', level: 'All Levels', duration: '60 min', format: 'Online', slotId: 'cls-pranayama' },
+    { name: 'Meditation', desc: 'Guided practices that encourage stillness, presence and inner awareness, helping create greater calm and clarity in everyday life.', level: 'All Levels', duration: '60 min', format: 'Online', slotId: 'cls-meditation' },
+    { name: 'Strength & Flexibility Training', desc: 'Yoga-based movement and functional strength practices are designed to improve muscular strength, joint mobility, flexibility, balance and overall physical resilience.', level: 'All Levels', duration: '60 min', format: 'Online', slotId: 'cls-strength' },
+    { name: 'Movement for a Sedentary Lifestyle', desc: 'Targeted practices to counter the effects of prolonged sitting and inactivity, with a focus on common concerns such as back pain, neck discomfort, shoulder stiffness, tight hips and restricted mobility.', level: 'All Levels', duration: '60 min', format: 'Online', slotId: 'cls-sedentary' },
+    { name: "Women's Health & Hormonal Wellness", desc: "Gentle, supportive practices designed to promote movement, relaxation and body awareness through different stages of a woman's life, with a focus on supporting overall wellbeing and hormonal balance.", level: 'All Levels', duration: '60 min', format: 'Online', slotId: 'cls-womens' },
+    { name: 'Senior Citizens Chair Yoga', desc: 'A gentle, accessible practice designed to improve mobility, balance, flexibility and strength while promoting relaxation and overall well-being. The session uses a chair for support, making yoga safe and comfortable for seniors, including those with limited mobility or difficulty getting down to the floor.', level: 'All Levels', duration: '30 min', format: 'Online', slotId: 'cls-senior' }
   ];
 
   scheduleData = [
-    { day: 'MON', date: 'Sep 7', time: '7:30 AM', class: 'Hatha Yoga', level: 'All Levels', location: 'Studio', status: 'available' },
-    { day: 'MON', date: 'Sep 7', time: '6:00 PM', class: 'Vinyasa Flow', level: 'Intermediate', location: 'Studio', status: 'almost-full' },
-    { day: 'TUE', date: 'Sep 8', time: '9:00 AM', class: 'Beginner Yoga', level: 'Beginner', location: 'Studio', status: 'available' },
-    { day: 'WED', date: 'Sep 9', time: '7:00 PM', class: 'Online Yoga', level: 'All Levels', location: 'Online', status: 'available' },
-    { day: 'THU', date: 'Sep 10', time: '6:00 PM', class: 'Breathwork', level: 'All Levels', location: 'Studio', status: 'full' },
-    { day: 'FRI', date: 'Sep 11', time: '8:00 AM', class: 'Meditation', level: 'All Levels', location: 'Studio', status: 'available' },
-    { day: 'SAT', date: 'Sep 12', time: '10:00 AM', class: 'Group Yoga', level: 'Beginner', location: 'Studio', status: 'almost-full' }
-  ];
-
-  benefitsData = [
-    { n: '01', t: 'Greater Flexibility', d: 'Gradually open tight muscles and joints.' },
-    { n: '02', t: 'Improved Strength', d: 'Build functional strength that supports daily movement.' },
-    { n: '03', t: 'Better Posture', d: 'Develop awareness of alignment on and off the mat.' },
-    { n: '04', t: 'Reduced Stress', d: 'Down-regulate the nervous system through breath and movement.' },
-    { n: '05', t: 'Deeper Breathing', d: 'Expand lung capacity and breathing efficiency.' },
-    { n: '06', t: 'A Calmer Mind', d: 'Create mental space through consistent practice.' }
-  ];
-
-  principlesData = [
-    { t: 'Personal Guidance', d: 'Thoughtful instruction adapted to individual needs.' },
-    { t: 'Beginner Friendly', d: 'A welcoming environment with no pressure to be perfect.' },
-    { t: 'Mindful Practice', d: 'Movement, breath and awareness come together.' },
-    { t: 'Supportive Community', d: 'A space where everyone can practice comfortably.' }
-  ];
-
-  testimonialsData = [
-    { name: 'Sarah M.', quote: 'I walked in stressed and walked out lighter. The pace of these classes is exactly what I needed.', cls: 'Hatha Yoga', slotId: 'test-1' },
-    { name: 'James R.', quote: 'As a complete beginner I was nervous, but the instruction is patient and clear. No pressure at all.', cls: 'Beginner Yoga', slotId: 'test-2' },
-    { name: 'Priya K.', quote: 'The breathwork sessions have genuinely changed how I handle stress day to day.', cls: 'Breathwork', slotId: 'test-3' },
-    { name: 'Alex T.', quote: 'Personal sessions gave me the attention I needed to finally fix my alignment.', cls: 'Personal Yoga', slotId: 'test-4' }
+    { day: 'MON', date: 'Sep 7', time: '7:30 AM', class: 'Hatha Yoga', level: 'All Levels', location: 'Online', status: 'available' },
+    { day: 'MON', date: 'Sep 7', time: '6:00 PM', class: 'Vinyasa Yoga', level: 'All Levels', location: 'Online', status: 'available' },
+    { day: 'TUE', date: 'Sep 8', time: '9:00 AM', class: 'Yin Yoga', level: 'All Levels', location: 'Online', status: 'available' },
+    { day: 'WED', date: 'Sep 9', time: '7:00 PM', class: 'Pranayama (Breathwork)', level: 'All Levels', location: 'Online', status: 'available' },
+    { day: 'THU', date: 'Sep 10', time: '6:00 PM', class: 'Meditation', level: 'All Levels', location: 'Online', status: 'available' },
+    { day: 'FRI', date: 'Sep 11', time: '8:00 AM', class: 'Strength & Flexibility Training', level: 'All Levels', location: 'Online', status: 'available' },
+    { day: 'SAT', date: 'Sep 12', time: '10:00 AM', class: 'Senior Citizens Chair Yoga', level: 'All Levels', location: 'Online', status: 'available' }
   ];
 
   bookingDatesData = ['Sun, Sep 7', 'Mon, Sep 8', 'Tue, Sep 9', 'Wed, Sep 10', 'Thu, Sep 11', 'Fri, Sep 12'];
@@ -546,10 +534,7 @@ class Component extends DCLogic {
     }
   };
 
-  prevTestimonial = () => this.setState(s => ({ testimonialStart: (s.testimonialStart - 1 + this.testimonialsData.length) % this.testimonialsData.length }));
-  nextTestimonial = () => this.setState(s => ({ testimonialStart: (s.testimonialStart + 1) % this.testimonialsData.length }));
   setFilter = (label) => () => this.setState({ scheduleFilter: label });
-  selectGuide = (choice) => () => this.setState(s => ({ activeGuide: s.activeGuide === choice.q ? null : choice.q }));
 
   renderVals() {
     const st = this.state;
@@ -563,18 +548,13 @@ class Component extends DCLogic {
 
     const navItems = [
       { label: 'Home', href: '#home' }, { label: 'About', href: '#about' }, { label: 'Classes', href: '#classes' },
-      { label: 'Schedule', href: '#schedule' }, { label: 'Benefits', href: '#benefits' },
-      { label: 'Testimonials', href: '#testimonials' }, { label: 'Contact', href: '#contact' }
+      { label: 'Pricing', href: '#pricing' }, { label: 'Schedule', href: '#schedule' },
+      { label: 'Contact', href: '#contact' }
     ];
 
     const classes = this.classesData.map(c => ({ ...c, bookHandler: this.openBookingForClass(c) }));
 
-    const guideChoices = this.guideData.map(g => ({
-      ...g, active: st.activeGuide === g.q, onClick: this.selectGuide(g),
-      style: st.activeGuide === g.q ? 'border-color:rgba(251,247,238,0.6) !important;' : ''
-    }));
-
-    const filterDefs = ['All', 'Beginner', 'Intermediate', 'Online', 'In-person'];
+    const filterDefs = ['All', 'Hatha', 'Vinyasa', 'Yin', 'Pranayama', 'Meditation'];
     const filters = filterDefs.map(label => ({
       label,
       onClick: this.setFilter(label),
@@ -589,10 +569,11 @@ class Component extends DCLogic {
       full: { label: 'Fully Booked', style: 'background:rgba(51,64,31,0.08);color:#8A8A78;' }
     };
     let scheduleFiltered = this.scheduleData;
-    if (st.scheduleFilter === 'Beginner') scheduleFiltered = scheduleFiltered.filter(r => r.level === 'Beginner' || r.level === 'All Levels');
-    else if (st.scheduleFilter === 'Intermediate') scheduleFiltered = scheduleFiltered.filter(r => r.level === 'Intermediate');
-    else if (st.scheduleFilter === 'Online') scheduleFiltered = scheduleFiltered.filter(r => r.location === 'Online');
-    else if (st.scheduleFilter === 'In-person') scheduleFiltered = scheduleFiltered.filter(r => r.location === 'Studio');
+    if (st.scheduleFilter === 'Hatha') scheduleFiltered = scheduleFiltered.filter(r => r.class === 'Hatha Yoga');
+    else if (st.scheduleFilter === 'Vinyasa') scheduleFiltered = scheduleFiltered.filter(r => r.class === 'Vinyasa Yoga');
+    else if (st.scheduleFilter === 'Yin') scheduleFiltered = scheduleFiltered.filter(r => r.class === 'Yin Yoga');
+    else if (st.scheduleFilter === 'Pranayama') scheduleFiltered = scheduleFiltered.filter(r => r.class === 'Pranayama (Breathwork)');
+    else if (st.scheduleFilter === 'Meditation') scheduleFiltered = scheduleFiltered.filter(r => r.class === 'Meditation');
     const filteredSchedule = scheduleFiltered.map(row => {
       const s = statusMap[row.status];
       const disabled = row.status === 'full';
@@ -603,8 +584,6 @@ class Component extends DCLogic {
         bookHandler: this.openBookingForSlot(row)
       };
     });
-
-    const visibleTestimonials = [0, 1, 2].map(i => this.testimonialsData[(st.testimonialStart + i) % this.testimonialsData.length]);
 
     const bookingClasses = this.classesData.map(c => ({
       name: c.name, onClick: this.selectClass(c.name),
@@ -626,16 +605,15 @@ class Component extends DCLogic {
       headerStyle, headerTextColor, headerSubTextColor, navItems,
       mobileOpen: st.mobileOpen, toggleMobile: this.toggleMobile, openBooking: this.openBooking, openBookingMobile: this.openBookingMobile,
       teacher: {
-        name: 'Maya Ellis',
-        credentials: 'RYT-500 · 10 years teaching · Trained in Rishikesh, India',
-        bio: "My own practice began during a difficult year, when I needed a way to slow down and feel steady again. Since then I've trained across Hatha, Vinyasa and restorative traditions, and I teach the way I wish I'd been taught: patiently, without judgment, and with room for every body to find its own shape."
+        name: 'My Story',
+        quote: "I don't think I chose yoga. I think yoga chose me.",
+        story: "My journey began not as a carefully planned destination, but as a quiet unfolding. What started as a practice slowly became a way of understanding myself \u2014 my body, my breath, my thoughts, and the spaces in between.",
+        credentials: "I am a 300-hour certified yoga teacher, trained at Vinyasa Yogashram, Rishikesh, with several years of experience teaching yoga. My practice and teaching draw from Hatha, Vinyasa and Yin Yoga, bringing together movement, breath, stillness and awareness.",
+        teaching: "At the heart of my teaching is a simple belief: yoga is not about perfect postures; it is about coming home to yourself. It is a practice of listening rather than forcing, of building strength while learning softness, and of creating a deeper connection between body and mind.",
+        approach: "My classes are beginner-friendly and thoughtfully adapted to individual needs \u2014 whether your intention is to build strength and flexibility, support weight management, improve focus, manage stress, or simply create a little more balance in everyday life."
       },
       classes,
-      guideChoices,
       filters, filteredSchedule,
-      benefits: this.benefitsData,
-      principles: this.principlesData,
-      visibleTestimonials, prevTestimonial: this.prevTestimonial, nextTestimonial: this.nextTestimonial,
       instaSlots: ['insta-1', 'insta-2', 'insta-3', 'insta-4', 'insta-5', 'insta-6'],
       socials: [{ initial: 'IG' }, { initial: 'FB' }, { initial: 'WA' }],
       footerNav: navItems.slice(0, 5),
