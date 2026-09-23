@@ -1,26 +1,271 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-primary: #556b2f;
+  --color-primary-hover: #3f5122;
+  --color-deep: #33401f;
+
+  --color-stone: #fbf7ee;
+  --color-parchment: #f5f0e2;
+  /* Band background. Lightened from #DED1B4 so body copy on bands clears WCAG AA. */
+  --color-beige: #efe8d4;
+  /* Deeper beige kept for accents, borders and text on dark grounds. */
+  --color-beige-deep: #ded1b4;
+  --color-chalk: #fffdf8;
+  --color-sand: #e4dcc6;
+  --color-night: #33401f;
+
+  --color-ink: #33401f;
+  --color-ink-soft: #5f5e49;
+  --color-ink-faint: #61614f;
+
+  --color-gold: #6e6039;
+  --color-sage: #8a9464;
+  --color-moss: #4b6e52;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-deep: var(--color-deep);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-stone: var(--color-stone);
+  --color-parchment: var(--color-parchment);
+  --color-beige: var(--color-beige);
+  --color-beige-deep: var(--color-beige-deep);
+  --color-chalk: var(--color-chalk);
+  --color-sand: var(--color-sand);
+  --color-night: var(--color-night);
+
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-ink-faint: var(--color-ink-faint);
+
+  --color-gold: var(--color-gold);
+  --color-sage: var(--color-sage);
+  --color-moss: var(--color-moss);
+
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-work-sans);
+  --font-mono: var(--font-plex-mono);
+
+  --radius-sm: 16px;
+  --radius-md: 20px;
+  --radius-lg: 24px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-stone);
+  color: var(--color-ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  text-wrap: balance;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: var(--color-beige);
+  color: var(--color-deep);
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* ---- motion system ---- */
+
+/*
+ * Only hide reveal content when scripting is available to un-hide it.
+ * Browsers without `scripting` support ignore the block, so content stays
+ * visible — the safe failure direction. Without this guard, a JS failure
+ * leaves every section below the hero permanently blank.
+ */
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lift {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.lift:hover {
+  transform: translateY(-2px);
+}
+
+.card-lift {
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(51, 64, 31, 0.1);
+}
+
+.zoomwrap {
+  overflow: hidden;
+}
+
+.zoomwrap .zoom {
+  transition: transform 0.6s ease;
+}
+
+.card-lift:hover .zoomwrap .zoom {
+  transform: scale(1.06);
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.group\/view:hover .arrow,
+.arrow-parent:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* ---- hero headline: staggered entrance + slow colour shimmer ---- */
+
+.hero-title span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.35em);
+  animation: word-rise 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.hero-title span:nth-child(1) { animation-delay: 0.05s; }
+.hero-title span:nth-child(2) { animation-delay: 0.15s; }
+.hero-title span:nth-child(3) { animation-delay: 0.25s; }
+.hero-title span:nth-child(4) { animation-delay: 0.35s; }
+.hero-title span:nth-child(5) { animation-delay: 0.45s; }
+
+@keyframes word-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*
+ * Gradient fill is applied only where background-clip:text is supported.
+ * Elsewhere the headline keeps its solid --color-ink, so it is never invisible.
+ */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .hero-title .shimmer {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-ink) 0%,
+      var(--color-ink) 18%,
+      var(--color-primary) 38%,
+      var(--color-gold) 50%,
+      var(--color-primary) 62%,
+      var(--color-ink) 82%,
+      var(--color-ink) 100%
+    );
+    background-size: 260% 100%;
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation:
+      word-rise 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) forwards,
+      shimmer 9s ease-in-out 1.2s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.breathe {
+  animation: breathe 7s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.035);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .breathe {
+    animation: none !important;
+  }
+
+  .hero-title span,
+  .hero-title .shimmer {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .hero-title .shimmer {
+    background-image: none !important;
+    color: var(--color-ink) !important;
+  }
+
+  .arrow,
+  .card-lift,
+  .lift {
+    transition: none !important;
+  }
+
+  .card-lift:hover,
+  .lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .card-lift:hover .zoomwrap .zoom,
+  .arrow-parent:hover .arrow {
+    transform: none;
+  }
 }
