@@ -1,5 +1,8 @@
 import { ImageResponse } from "next/og";
 
+// Required by `output: "export"` — generate this image at build time.
+export const dynamic = "force-static";
+
 export const alt = "Tat Sat Yoga — online yoga classes. First class free.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
