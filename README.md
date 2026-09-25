@@ -77,7 +77,7 @@ src/
 
 ## Still to do
 
-- **Photography** — every image slot is a labelled placeholder.
+- **Photography** — three photos are in `public/images/`, compressed to WebP and cropped to 4:5. More would let the class pages each have their own.
 - **About page** — expanded content from Mohini.
 - **Privacy policy and terms** — placeholder pages, excluded from search. Needs real text before any bookings or payments are taken online.
 - **Reviews** — the page is an honest empty state until real, approved reviews exist.

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { siteConfig } from "@/lib/site-config";
 import { FinalCta } from "@/components/FinalCta";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { Photo } from "@/components/Photo";
 
 export const metadata: Metadata = {
   title: "About Mohini Rai",
@@ -34,7 +34,7 @@ export default function AboutPage() {
               both offline and, for the students I work with now, entirely online.
             </p>
           </div>
-          <ImagePlaceholder label="Teacher portrait" className="aspect-[4/5]" />
+          <Photo src="/images/meditation-temple-doorway.webp" alt="A yoga teacher seated in meditation before a carved stone temple doorway" eager />
         </Container>
       </section>
 

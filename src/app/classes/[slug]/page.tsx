@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { FinalCta } from "@/components/FinalCta";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { Photo } from "@/components/Photo";
 import { classFormats, whatsappHref } from "@/lib/site-config";
 
 export function generateStaticParams() {
@@ -53,7 +53,7 @@ export default async function ClassFormatPage({
               </Button>
             </div>
           </div>
-          <ImagePlaceholder label="Session photo — real practice" className="aspect-[4/5]" />
+          <Photo src="/images/reverse-prayer-garden.webp" alt="A yoga practitioner kneeling on a block-printed mat in a flowering garden, hands joined in reverse prayer" eager />
         </Container>
       </section>
 

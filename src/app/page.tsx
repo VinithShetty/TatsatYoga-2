@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { FinalCta } from "@/components/FinalCta";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { Photo } from "@/components/Photo";
 import {
   whatsappHref,
   benefits,
@@ -134,10 +134,7 @@ export default function HomePage() {
               1:1 · Small groups · Senior chair yoga — all live, all online.
             </p>
           </div>
-          <ImagePlaceholder
-            label="Teacher photo — real session, natural light"
-            className="aspect-[4/5] rounded-lg"
-          />
+          <Photo src="/images/yoga-lakeside-twist.webp" alt="A yoga practitioner in a seated twist on a mat beside a still lake, misty hills behind" eager />
         </Container>
       </section>
 
@@ -231,10 +228,7 @@ export default function HomePage() {
       {/* Meet your teacher */}
       <section className="py-16 sm:py-20">
         <Container className="grid items-center gap-14 md:grid-cols-[0.85fr_1.15fr]">
-          <ImagePlaceholder
-            label="Portrait photography"
-            className="reveal aspect-[4/5] rounded-lg"
-          />
+          <Photo src="/images/meditation-temple-doorway.webp" alt="A yoga teacher seated in meditation before a carved stone temple doorway" className="reveal" />
           <div className="reveal">
             <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
               Meet Your Teacher
