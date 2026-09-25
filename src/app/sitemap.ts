@@ -9,7 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const formatRoutes = classFormats.map((f) => `/classes/${f.slug}`);
 
   return [...staticRoutes, ...formatRoutes].map((path) => ({
-    url: `${siteConfig.url}${path}`,
+    // trailingSlash is on, so list the final URL rather than one that redirects.
+    url: `${siteConfig.url}${path}/`,
     lastModified: new Date(),
   }));
 }

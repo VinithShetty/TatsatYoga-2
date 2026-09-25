@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tat Sat Yoga
 
-## Getting Started
+Website for **Tat Sat Yoga** — live online yoga classes with Mohini Rai, a 300-hour certified teacher. Built to rank for online-yoga searches and turn visitors into free-trial bookings over WhatsApp.
 
-First, run the development server:
+**Stack:** Next.js 16 (App Router, static export) · React 19 · TypeScript · Tailwind CSS 4
+
+## Quick start
+
+Requires Node.js 20.9 or newer.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000>.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Local dev server with hot reload |
+| `npm run build` | Production build into `out/` — plain static HTML |
+| `npm start` | Serve the built `out/` folder locally |
+| `npm run lint` | ESLint |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Editing content
 
-## Learn More
+Almost everything a non-developer would want to change lives in one file: **[`src/lib/site-config.ts`](src/lib/site-config.ts)**.
 
-To learn more about Next.js, take a look at the following resources:
+| To change… | Edit |
+| --- | --- |
+| WhatsApp number, teacher name, tagline | `siteConfig` |
+| Class formats, durations and **prices** | `classFormats` |
+| Yoga styles on the Practice page | `styles` |
+| "Who should practise yoga" cards | `audiences` |
+| Header and footer links | `primaryNav`, `footerNav` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Page copy lives in `src/app/<route>/page.tsx`. Colours and fonts are design tokens in [`src/app/globals.css`](src/app/globals.css).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploying to Vercel
 
-## Deploy on Vercel
+1. Push this repo to GitHub.
+2. At [vercel.com/new](https://vercel.com/new), import the repository.
+3. Accept the defaults — Vercel detects Next.js. No build settings or environment variables are required.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Every push to `main` then redeploys automatically, and every pull request gets its own preview URL.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Custom domain
+
+When `tatsatyoga.in` is pointed at Vercel, add it under **Project → Settings → Domains**. The site picks up the new domain on its next build — share previews, the sitemap and structured data all follow it automatically.
+
+### Environment variables
+
+None are required on Vercel.
+
+| Variable | When you need it |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Only when building for a host **other than** Vercel. Set it to the URL the site will be served from (e.g. `https://example.netlify.app`), or WhatsApp and social previews will point at the wrong domain. |
+
+## Hosting elsewhere
+
+`npm run build` emits a fully static site in `out/` with no server required, so it runs on GitHub Pages, Netlify, Cloudflare Pages or any static host. Set `NEXT_PUBLIC_SITE_URL` when building (see above).
+
+## Project structure
+
+```
+src/
+  app/                 One folder per route (about, classes, pricing, …)
+    classes/[slug]/    The three format pages, generated from classFormats
+    icon.svg           Favicon
+    apple-icon.png     iOS home-screen icon
+    opengraph-image.png  Share preview for WhatsApp and social
+    sitemap.ts         Generated sitemap.xml
+    robots.ts          Generated robots.txt
+  components/          Nav, footer, buttons, logo
+  lib/site-config.ts   Content and settings — start here
+```
+
+## Still to do
+
+- **Photography** — every image slot is a labelled placeholder.
+- **About page** — expanded content from Mohini.
+- **Privacy policy and terms** — placeholder pages, excluded from search. Needs real text before any bookings or payments are taken online.
+- **Reviews** — the page is an honest empty state until real, approved reviews exist.

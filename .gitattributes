@@ -1,0 +1,13 @@
+# LF everywhere — in the repo and in working copies on every OS.
+# Keeps Windows edits from introducing CRLF churn; Vercel builds on Linux.
+* text=auto eol=lf
+
+# Binary assets: never touch line endings or diff as text.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.gif   binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary

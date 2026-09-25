@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { footerNav, primaryNav, whatsappHref } from "@/lib/site-config";
 import { LogoLockup } from "@/components/Logo";
 
@@ -110,11 +110,9 @@ function isActive(pathname: string, href: string) {
 export function Nav() {
   const pathname = usePathname();
   const mobileTabs = primaryNav.filter((item) => item.href !== "/about");
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+  // Remember which path the menu was opened on; navigating anywhere closes it.
+  const [menuOpenOn, setMenuOpenOn] = useState<string | null>(null);
+  const menuOpen = menuOpenOn === pathname;
 
   return (
     <>
@@ -189,7 +187,7 @@ export function Nav() {
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              onClick={() => setMenuOpen((v) => !v)}
+              onClick={() => setMenuOpenOn(menuOpen ? null : pathname)}
               className="flex h-9 w-9 items-center justify-center rounded-full border border-deep/15 text-ink-soft"
             >
               <MenuIcon className="h-4.5 w-4.5" open={menuOpen} />

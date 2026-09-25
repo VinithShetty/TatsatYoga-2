@@ -1,9 +1,26 @@
+/**
+ * Canonical origin used for OG images, the sitemap and structured data.
+ * Must match wherever the site is actually served, or share previews break.
+ *
+ * 1. NEXT_PUBLIC_SITE_URL — explicit override (set it in Vercel once the
+ *    custom domain is live, or when building for another host).
+ * 2. VERCEL_PROJECT_PRODUCTION_URL — set automatically on every Vercel build;
+ *    resolves to the custom domain once one is attached.
+ * 3. The brand domain, for local builds.
+ */
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://www.tatsatyoga.in")
+).replace(/\/+$/, "");
+
 export const siteConfig = {
   name: "Tat Sat Yoga",
   teacherName: "Mohini Rai",
   teacherFirstName: "Mohini",
   tagline: "Move. Breathe. Be.",
-  url: "https://www.tatsatyoga.in",
+  url: siteUrl,
   description:
     "Online yoga with Mohini Rai, a 300-hour certified teacher — Hatha, Vinyasa, Yin, breathwork and meditation, taught 1:1 or in small groups. First session is a free trial.",
   // India (+91) 99168 77138 — wa.me needs country code, digits only.
