@@ -55,49 +55,55 @@ export const footerNav: NavItem[] = [
 ];
 
 /**
- * Who the practice is for. Interim copy — Mohini is drafting the final wording.
- * Phrased as movement support, never as medical treatment.
+ * Who should practise yoga, and why — shown as the "Who it's for" cards on the
+ * homepage. Each leads with the problem that group actually has.
+ * Phrased as support, never as treatment: no medical or hormonal-health claims.
  */
 export type Audience = {
-  id: string;
+  id: "desk" | "womens-health" | "strength" | "seniors";
   who: string;
-  headline: string;
+  problem: string;
   body: string;
-  focus: string[];
+  helps: string[];
+  cta: string;
   href: string;
 };
 
 export const audiences: Audience[] = [
   {
     id: "desk",
-    who: "Desk-bound professionals",
-    headline: "Eight hours in a chair adds up",
-    body: "Long hours at a desk quietly shorten hip flexors, round the upper back and stiffen the neck and shoulders. A daily practice works as a counterweight — mobility for the spine, opening for the chest, and strength where sitting has let it go.",
-    focus: ["Spine", "Neck & shoulders", "Hips", "Posture"],
+    who: "Corporate & desk professionals",
+    problem: "Desk jobs quietly wear down spinal health",
+    body: "Eight or more hours in a chair shortens the hip flexors, rounds the upper back and loads the lower spine day after day. Regular practice works against it — mobilising the spine, opening the chest, and rebuilding the core and back strength that sitting erodes.",
+    helps: ["Back & neck stiffness", "Posture", "Hip mobility"],
+    cta: "Yoga for desk workers",
     href: "/practice#sedentary",
   },
   {
     id: "womens-health",
-    who: "Women through every stage",
-    headline: "A practice that adapts to your cycle",
-    body: "Energy, strength and appetite for effort change week to week and stage to stage. Sessions are paced to what your body actually has that day — gentler and more restorative when that serves you, stronger when it doesn't.",
-    focus: ["Gentle movement", "Relaxation", "Body awareness"],
+    who: "Women & hormonal health",
+    problem: "Hormones change how your body feels, week to week",
+    body: "The menstrual cycle, pregnancy and postpartum, perimenopause and menopause all shift energy, mood and comfort. Sessions are paced to what your body has that day — restorative when you need rest, stronger when you don't — to ease tension and help manage stress.",
+    helps: ["Stress & tension", "Cycle-aware movement", "Rest & recovery"],
+    cta: "Practice for women",
     href: "/practice#womens-health",
   },
   {
     id: "strength",
-    who: "Gym-goers and lifters",
-    headline: "Strength without the stiffness",
-    body: "Heavy training builds muscle but rarely builds range. Yoga fills the gap — joint mobility, controlled flexibility and balance work that protects the lifts you already care about and helps you recover between them.",
-    focus: ["Mobility", "Flexibility", "Balance", "Recovery"],
+    who: "Gym-goers & strength trainers",
+    problem: "Muscle without mobility holds you back",
+    body: "Lifting builds strength but tends to shorten muscles and narrow your range of movement. Yoga adds what the gym leaves out — flexibility, joint mobility and balance — so you move better, recover between sessions, and protect the lifts you care about.",
+    helps: ["Flexibility", "Joint mobility", "Recovery"],
+    cta: "Strength & flexibility",
     href: "/practice#strength",
   },
   {
     id: "seniors",
     who: "Senior citizens",
-    headline: "Strength, balance and confidence",
-    body: "Muscle and balance decline with age unless they are asked to stay. Chair-supported practice keeps strength, steadiness and range available — with no floor work, and at a pace that never rushes the breath.",
-    focus: ["Strength", "Balance", "Mobility", "Confidence"],
+    problem: "Muscle and balance fade with age — unless they're used",
+    body: "The body loses muscle steadily with age, and balance goes with it, making everyday movement harder and falls more likely. Gentle, chair-supported practice keeps strength, steadiness and confidence in movement — with no floor work at all.",
+    helps: ["Strength", "Balance", "Confident movement"],
+    cta: "Chair yoga for seniors",
     href: "/classes/chair-yoga-seniors",
   },
 ];

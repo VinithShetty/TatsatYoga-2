@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { FinalCta } from "@/components/FinalCta";
@@ -9,6 +10,7 @@ import {
   styles,
   audiences,
   siteConfig,
+  type Audience,
 } from "@/lib/site-config";
 
 function CheckIcon() {
@@ -45,6 +47,57 @@ function TickIcon() {
     </svg>
   );
 }
+
+function LineIcon({ children }: { children: ReactNode }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-5.5 w-5.5"
+      aria-hidden="true"
+    >
+      {children}
+    </svg>
+  );
+}
+
+const audienceIcons: Record<Audience["id"], ReactNode> = {
+  // laptop — desk work
+  desk: (
+    <LineIcon>
+      <rect x="4" y="5" width="16" height="10.5" rx="1.5" />
+      <path d="M2.5 19h19" />
+    </LineIcon>
+  ),
+  // crescent — cycles and phases
+  "womens-health": (
+    <LineIcon>
+      <path d="M19.5 14.2A7.8 7.8 0 1 1 9.8 4.5a6.2 6.2 0 0 0 9.7 9.7Z" />
+    </LineIcon>
+  ),
+  // dumbbell — strength training
+  strength: (
+    <LineIcon>
+      <rect x="5" y="6.5" width="3" height="11" rx="1" />
+      <rect x="16" y="6.5" width="3" height="11" rx="1" />
+      <rect x="2" y="9" width="3" height="6" rx="1" />
+      <rect x="19" y="9" width="3" height="6" rx="1" />
+      <path d="M8 12h8" />
+    </LineIcon>
+  ),
+  // chair — chair-supported practice
+  seniors: (
+    <LineIcon>
+      <path d="M7 11V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v5" />
+      <path d="M4 12a1.5 1.5 0 0 1 3 0v1h10v-1a1.5 1.5 0 0 1 3 0v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z" />
+      <path d="M6 17v3M18 17v3" />
+    </LineIcon>
+  ),
+};
 
 const offerings = [
   {
@@ -175,21 +228,21 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Who this is for */}
-      <section className="py-16 sm:py-20">
+      {/* Who should practise yoga, and why */}
+      <section className="border-b border-deep/10 py-16 sm:py-20">
         <Container>
-          <div className="reveal grid gap-8 border-b border-deep/10 pb-10 md:grid-cols-[1fr_auto] md:items-end">
+          <div className="reveal grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
             <div className="max-w-2xl">
               <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
                 Who It&rsquo;s For
               </p>
-              <h2 className="text-[2.125rem] font-medium tracking-[-0.01em] text-ink sm:text-[2.5rem]">
+              <h2 className="text-[2.125rem] font-medium leading-[1.12] tracking-[-0.01em] text-ink sm:text-[2.75rem]">
                 Who should practise yoga, and why
               </h2>
-              <p className="mt-4 text-[16px] leading-[1.75] text-ink-soft">
-                Most people arrive with a specific reason — a stiff back, a body that
-                has changed, strength that needs balancing out. These are the four we
-                see most often.
+              <p className="mt-4 text-[16.5px] leading-[1.75] text-ink-soft">
+                Most people don&rsquo;t come to yoga for yoga. They come because
+                something has started to hurt, stiffen or slip. These are the four
+                reasons we see most often.
               </p>
             </div>
             <Link
@@ -200,26 +253,50 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="reveal mt-10 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="reveal mt-10 grid gap-6 md:grid-cols-2">
             {audiences.map((a) => (
-              <Link
+              <article
                 key={a.id}
-                href={a.href}
-                className="arrow-parent border-t-2 border-primary/25 pt-5 transition-colors hover:border-primary"
+                className="card-lift flex flex-col rounded-lg border border-deep/10 bg-chalk p-7 sm:p-8"
               >
-                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-gold">
-                  {a.who}
-                </p>
-                <h3 className="mt-2.5 font-display text-[18px] font-medium leading-snug text-ink">
-                  {a.headline}
+                <div className="flex items-center gap-3.5">
+                  <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-primary/10 text-primary">
+                    {audienceIcons[a.id]}
+                  </span>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-gold">
+                    {a.who}
+                  </p>
+                </div>
+
+                <h3 className="mt-5 font-display text-[1.375rem] font-medium leading-snug text-ink sm:text-[1.5rem]">
+                  {a.problem}
                 </h3>
-                <p className="mt-3 text-[14px] leading-relaxed text-ink-soft">
-                  {a.body}
-                </p>
-                <p className="mt-3.5 text-[12.5px] text-ink-faint">
-                  {a.focus.join(" · ")}
-                </p>
-              </Link>
+                <p className="mt-3 text-[15px] leading-[1.7] text-ink-soft">{a.body}</p>
+
+                <div className="mt-auto pt-6">
+                  <div className="border-t border-deep/10 pt-4">
+                    <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-ink-faint">
+                      Yoga helps with
+                    </p>
+                    <ul className="mt-2.5 flex flex-wrap gap-2">
+                      {a.helps.map((h) => (
+                        <li
+                          key={h}
+                          className="rounded-full bg-primary/[0.08] px-3 py-1 text-[13px] text-ink"
+                        >
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <Link
+                    href={a.href}
+                    className="arrow-parent mt-5 inline-block text-sm font-medium text-primary hover:text-primary-hover"
+                  >
+                    {a.cta} <span className="arrow">→</span>
+                  </Link>
+                </div>
+              </article>
             ))}
           </div>
         </Container>
