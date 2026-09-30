@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LogoBadge } from "@/components/Logo";
+import { Logo } from "@/components/Logo";
 import { footerNav, primaryNav, siteConfig } from "@/lib/site-config";
 
 export function Footer() {
@@ -8,7 +8,7 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
         <div className="flex flex-col gap-10 sm:flex-row sm:justify-between">
           <div>
-            <LogoBadge className="mb-4 h-36 w-36 text-primary" />
+            <Logo className="mb-4 h-36" />
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-ink-soft">
               {siteConfig.tagline} — online yoga with {siteConfig.teacherName},
               a 300-hour certified teacher.

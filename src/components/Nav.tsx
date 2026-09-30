@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { footerNav, primaryNav, whatsappHref } from "@/lib/site-config";
-import { LogoLockup } from "@/components/Logo";
+import { Logo } from "@/components/Logo";
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -125,9 +125,9 @@ export function Nav() {
 
       {/* Desktop / tablet top bar */}
       <header className="sticky top-0 z-40 hidden border-b border-deep/10 bg-stone/90 backdrop-blur md:block">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-6 py-4 lg:px-8">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-6 py-2 lg:px-8">
           <Link href="/" aria-label="Tat Sat Yoga — home">
-            <LogoLockup />
+            <Logo eager className="h-20" />
           </Link>
           <nav aria-label="Primary" className="flex items-center gap-5 lg:gap-8">
             {primaryNav.map((item) => (
@@ -168,9 +168,9 @@ export function Nav() {
 
       {/* Mobile top bar: wordmark + menu + WhatsApp */}
       <header className="sticky top-0 z-40 border-b border-deep/10 bg-stone/95 backdrop-blur md:hidden">
-        <div className="flex items-center justify-between px-5 py-3.5">
+        <div className="flex items-center justify-between px-5 py-2">
           <Link href="/" aria-label="Tat Sat Yoga — home">
-            <LogoLockup className="scale-95 origin-left" />
+            <Logo eager className="h-14" />
           </Link>
           <div className="flex items-center gap-2">
             <a
