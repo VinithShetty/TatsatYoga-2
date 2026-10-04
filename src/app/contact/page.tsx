@@ -15,7 +15,7 @@ export default function ContactPage() {
         <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
           Contact
         </p>
-        <h1 className="text-[3.25rem] font-semibold leading-[1.0] tracking-[-0.02em] text-ink sm:text-[4.25rem]">
+        <h1 className="text-[3.25rem] font-semibold leading-[1.0] text-ink sm:text-[4.25rem]">
           Let&rsquo;s talk on WhatsApp
         </h1>
         <p className="mt-5 text-[17px] leading-relaxed text-ink-soft">

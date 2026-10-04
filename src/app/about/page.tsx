@@ -19,7 +19,7 @@ export default function AboutPage() {
             <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
               About {siteConfig.teacherName}
             </p>
-            <h1 className="text-[2.25rem] font-semibold italic leading-[1.1] tracking-[-0.01em] text-ink sm:text-[3rem]">
+            <h1 className="text-[2.25rem] font-semibold leading-[1.1] text-ink sm:text-[3rem]">
               I don&rsquo;t think I chose yoga. I think yoga chose me.
             </h1>
             <p className="mt-6 text-[15px] leading-relaxed text-ink-soft">
@@ -40,7 +40,7 @@ export default function AboutPage() {
 
       <section className="border-y border-deep/10 bg-beige py-16 sm:py-20">
         <Container className="max-w-2xl">
-          <h2 className="font-display text-[2.125rem] font-medium tracking-[-0.01em] text-ink sm:text-[2.75rem]">
+          <h2 className="font-display text-[2.125rem] font-semibold text-ink sm:text-[2.75rem]">
             A teaching philosophy, simply put
           </h2>
           <blockquote className="mt-6 font-display text-xl italic leading-snug text-ink">
@@ -59,7 +59,7 @@ export default function AboutPage() {
 
       <section className="py-16 sm:py-20">
         <Container className="max-w-2xl">
-          <h2 className="font-display text-[2.125rem] font-medium tracking-[-0.01em] text-ink sm:text-[2.75rem]">
+          <h2 className="font-display text-[2.125rem] font-semibold text-ink sm:text-[2.75rem]">
             My teaching draws from
           </h2>
           <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">

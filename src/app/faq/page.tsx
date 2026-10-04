@@ -58,7 +58,7 @@ export default function FaqPage() {
           <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
             FAQ
           </p>
-          <h1 className="text-[3.25rem] font-semibold leading-[1.0] tracking-[-0.02em] text-ink sm:text-[4.25rem]">
+          <h1 className="text-[3.25rem] font-semibold leading-[1.0] text-ink sm:text-[4.25rem]">
             Questions, answered
           </h1>
         </Container>
@@ -80,7 +80,7 @@ export default function FaqPage() {
 
       <section className="border-t border-deep/10 bg-beige py-16 text-center sm:py-20">
         <Container className="max-w-lg">
-          <h2 className="font-display text-[2.125rem] font-medium tracking-[-0.01em] text-ink sm:text-[2.75rem]">
+          <h2 className="font-display text-[2.125rem] font-semibold text-ink sm:text-[2.75rem]">
             Still have a question?
           </h2>
           <div className="mt-7 flex justify-center">

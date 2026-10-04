@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
@@ -10,24 +11,6 @@ import {
   whatsappHref,
   yogaIsForYouIf,
 } from "@/lib/site-config";
-
-function CheckIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="mt-0.5 h-5 w-5 flex-none text-primary"
-      aria-hidden="true"
-    >
-      <path d="m9 12 2 2 4-4" />
-      <circle cx="12" cy="12" r="9" />
-    </svg>
-  );
-}
 
 function TickIcon() {
   return (
@@ -46,12 +29,21 @@ function TickIcon() {
   );
 }
 
-function Eyebrow({ children, onDark = false }: { children: ReactNode; onDark?: boolean }) {
+/** Small bold sans label above a heading, as in the reference layout. */
+function Eyebrow({
+  children,
+  onDark = false,
+  className = "",
+}: {
+  children: ReactNode;
+  onDark?: boolean;
+  className?: string;
+}) {
   return (
     <p
-      className={`mb-4 text-[11px] font-medium uppercase tracking-[0.22em] ${
-        onDark ? "text-beige" : "text-gold"
-      }`}
+      className={`mb-4 text-[12px] font-semibold uppercase tracking-[0.2em] ${
+        onDark ? "text-chalk" : "text-primary-hover"
+      } ${className}`}
     >
       {children}
     </p>
@@ -61,43 +53,42 @@ function Eyebrow({ children, onDark = false }: { children: ReactNode; onDark?: b
 export default function HomePage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden pt-12 pb-14 sm:pt-16 sm:pb-18">
-        <svg
-          className="breathe pointer-events-none absolute -right-32 top-1/2 hidden h-[480px] w-[480px] -translate-y-1/2 text-primary/[0.08] lg:block"
-          viewBox="0 0 200 200"
-          aria-hidden="true"
-        >
-          <circle
-            cx="100"
-            cy="100"
-            r="92"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="6"
-            strokeLinecap="round"
-            strokeDasharray="480 100"
-            transform="rotate(125 100 100)"
+      {/* Hero — full-bleed photo, text over the open lake / sky */}
+      <section className="relative isolate overflow-hidden bg-parchment">
+        {/* Desktop: wide crop, pinned to the right so the pose stays clear of the text */}
+        <div className="absolute inset-y-0 right-0 -z-10 hidden w-[66%] md:block">
+          <Image
+            src="/images/hero-lakeside-wide.webp"
+            alt="Mohini Rai in a seated twist on a yoga mat beside a still lake, misty hills behind"
+            fill
+            sizes="66vw"
+            className="object-cover object-[45%_50%]"
+            loading="eager"
+            fetchPriority="high"
           />
-        </svg>
+        </div>
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-parchment from-34% via-parchment/70 via-48% to-transparent to-62% md:block"
+        />
 
-        <Container className="relative grid items-center gap-14 md:grid-cols-2">
-          <div>
-            <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.26em] text-gold">
-              Online yoga with {siteConfig.teacherName}
-            </p>
-            <h1 className="hero-title text-[2.75rem] font-bold leading-[1.04] tracking-[-0.025em] text-ink sm:text-[3.5rem] lg:text-[4rem]">
+        <Container className="relative flex flex-col pt-10 pb-8 md:min-h-[640px] md:justify-center md:py-20 lg:min-h-[700px]">
+          <div className="max-w-[34rem]">
+            <Eyebrow>Online yoga with {siteConfig.teacherName}</Eyebrow>
+            <h1 className="hero-title text-[2.5rem] font-semibold leading-[1] text-ink sm:text-[3.25rem] lg:text-[4rem]">
               <span>Yoga</span> <span>that</span> <span>meets</span> <span>you</span>{" "}
-              <span className="shimmer">where you are.</span>
+              <span className="script shimmer mt-1 block text-[3.4rem] leading-[1.1] text-primary sm:text-[4.25rem] lg:text-[5.25rem]">
+                where you are.
+              </span>
             </h1>
-            <p className="mt-6 font-display text-[1.375rem] font-light italic leading-snug text-ink-soft sm:text-[1.625rem]">
+            <p className="mt-5 font-display text-[1.375rem] font-medium italic leading-snug text-ink sm:text-[1.625rem]">
               Move better. Feel stronger. Breathe deeper.
             </p>
-            <p className="mt-5 max-w-md text-[17px] leading-[1.75] text-ink-soft">
+            <p className="mt-4 max-w-md text-[16px] leading-[1.7] text-ink-soft">
               Beginner-friendly Hatha, Vinyasa &amp; Yin Yoga classes designed to build
               strength, flexibility, mobility and a deeper connection with your body.
             </p>
-            <div className="mt-9 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap gap-3">
               <Button
                 href="/classes"
                 variant="primary"
@@ -108,139 +99,188 @@ export default function HomePage() {
               <Button
                 href={whatsappHref()}
                 variant="outline"
+                className="bg-chalk"
                 ariaLabel="Chat on WhatsApp about classes"
               >
                 Chat on WhatsApp
               </Button>
             </div>
           </div>
-          <Photo
-            src="/images/yoga-lakeside-twist.webp"
-            alt="A yoga practitioner in a seated twist on a mat beside a still lake, misty hills behind"
-            eager
+        </Container>
+
+        {/* Mobile: tall crop below the copy; its sky fades into the background */}
+        <div className="relative -z-10 -mt-28 aspect-[4/5] md:hidden">
+          <Image
+            src="/images/hero-lakeside-tall.webp"
+            alt="Mohini Rai in a seated twist on a yoga mat beside a still lake, misty hills behind"
+            fill
+            sizes="100vw"
+            className="object-cover"
+            loading="eager"
+            fetchPriority="high"
           />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-b from-parchment via-parchment/40 via-25% to-transparent to-45%"
+          />
+        </div>
+      </section>
+
+      {/* More than just a workout — sage band, centred */}
+      <section className="bg-beige py-16 sm:py-24">
+        <Container className="reveal !max-w-4xl text-center">
+          <Eyebrow className="!text-deep">The practice</Eyebrow>
+          <h2 className="text-[2.25rem] font-semibold leading-[1.08] text-ink sm:text-[3.25rem]">
+            More than just a workout.
+          </h2>
+          <p className="mx-auto mt-6 max-w-2xl font-display text-[1.3rem] font-medium italic leading-[1.5] text-ink sm:text-[1.45rem]">
+            Yoga is not about forcing your body into a shape. It is about learning to
+            understand, move and connect with it.
+          </p>
+          <p className="mx-auto mt-4 max-w-xl text-[16px] leading-[1.75] text-ink">
+            Classes combine mindful movement, breathwork and awareness to support a
+            stronger, healthier and more balanced you.
+          </p>
+
+          <p className="mt-12 font-display text-[15px] font-semibold uppercase tracking-[0.16em] text-deep">
+            What the practice builds
+          </p>
+          <ul className="mt-5 flex flex-wrap justify-center gap-2.5">
+            {benefits.map((benefit) => (
+              <li
+                key={benefit}
+                className="rounded-sm bg-chalk px-4 py-2.5 text-[14px] font-medium text-ink"
+              >
+                {benefit}
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 
-      {/* More than just a workout + what the practice builds */}
-      <section className="border-y border-deep/10 bg-beige py-16 sm:py-20">
-        <Container className="reveal grid gap-12 md:grid-cols-[1.05fr_0.95fr] md:gap-16">
-          <div>
-            <Eyebrow>The practice</Eyebrow>
-            <h2 className="text-[2.125rem] font-medium leading-[1.12] tracking-[-0.01em] text-ink sm:text-[2.75rem]">
-              More than just a workout.
-            </h2>
-            <p className="mt-6 font-display text-[1.25rem] font-light italic leading-[1.5] text-ink">
-              Yoga is not about forcing your body into a shape. It is about learning to
-              understand, move and connect with it.
-            </p>
-            <p className="mt-5 text-[16.5px] leading-[1.75] text-ink-soft">
-              Classes combine mindful movement, breathwork and awareness to support a
-              stronger, healthier and more balanced you.
-            </p>
-          </div>
-          <div className="md:border-l md:border-deep/10 md:pl-16">
-            <Eyebrow>What the practice builds</Eyebrow>
-            <ul className="flex flex-wrap gap-2.5">
-              {benefits.map((benefit) => (
-                <li
-                  key={benefit}
-                  className="rounded-full border border-deep/10 bg-chalk px-4 py-2 text-[13.5px] text-ink-soft"
-                >
-                  {benefit}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Container>
-      </section>
-
-      {/* Your practice, your pace + yoga is for you if */}
-      <section className="py-16 sm:py-20">
-        <Container className="grid gap-12 md:grid-cols-[0.85fr_1.15fr] md:gap-16">
+      {/* Your practice, your pace — script-titled story block beside a portrait */}
+      <section className="py-16 sm:py-24">
+        <Container className="grid items-center gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-20">
+          <Photo
+            src="/images/meditation-temple-doorway.webp"
+            alt="Mohini Rai seated in meditation before a carved stone temple doorway"
+            className="reveal"
+          />
           <div className="reveal">
             <Eyebrow>For everyone</Eyebrow>
-            <h2 className="text-[2.125rem] font-medium leading-[1.12] tracking-[-0.01em] text-ink sm:text-[2.75rem]">
-              Your practice. Your pace. Your journey.
+            <h2 className="text-[2.25rem] font-semibold leading-[1.05] text-ink sm:text-[3rem]">
+              Your practice. Your pace.
+              <span className="script mt-1 block text-[3.25rem] leading-[1.1] text-primary sm:text-[4.25rem]">
+                Your journey.
+              </span>
             </h2>
-            <p className="mt-6 text-[16.5px] leading-[1.75] text-ink-soft">
+            <p className="mt-6 text-[16.5px] leading-[1.8] text-ink-soft">
               Whether you&rsquo;re a beginner, looking to build strength and flexibility,
               or simply seeking a little more balance in your everyday life &mdash;
               there&rsquo;s a place for you here.
             </p>
-            <Photo
-              src="/images/meditation-temple-doorway.webp"
-              alt="Mohini Rai seated in meditation before a carved stone temple doorway"
-              className="mt-10 hidden md:block"
-            />
+            <p className="mt-4 text-[16.5px] leading-[1.8] text-ink-soft">
+              Every class is taught live by {siteConfig.teacherName}, a 300-hour certified
+              teacher trained at Vinyasa Yogashram, Rishikesh.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href="/about" variant="outline">
+                Meet {siteConfig.teacherFirstName}
+              </Button>
+              <Button href="/classes" variant="primary" ariaLabel="See class details and pricing">
+                See Classes
+              </Button>
+            </div>
           </div>
+        </Container>
+      </section>
 
-          <div className="reveal rounded-lg border border-deep/10 bg-chalk p-7 sm:p-10">
-            <h3 className="font-display text-[1.75rem] font-medium leading-tight text-ink sm:text-[2rem]">
-              Yoga is for you if&hellip;
-            </h3>
-            <ul className="mt-7 divide-y divide-deep/10">
-              {yogaIsForYouIf.map((line) => (
+      {/* Yoga is for you if… — rounded sage panel */}
+      <section className="pb-16 sm:pb-24">
+        <Container>
+          <div className="reveal rounded-lg bg-beige px-6 py-12 sm:px-12 sm:py-16">
+            <div className="text-center">
+              <Eyebrow className="!text-deep">Who it&rsquo;s for</Eyebrow>
+              <h2 className="text-[2.25rem] font-semibold leading-[1.08] text-ink sm:text-[3rem]">
+                Yoga is for you if&hellip;
+              </h2>
+            </div>
+            <ol className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {yogaIsForYouIf.map((line, i) => (
                 <li
                   key={line}
-                  className="flex gap-3.5 py-3.5 text-[16px] leading-relaxed text-ink"
+                  className="card-lift flex gap-4 rounded-md bg-chalk p-5 text-[15.5px] leading-[1.6] text-ink sm:p-6"
                 >
-                  <CheckIcon />
-                  {line}
+                  <span
+                    aria-hidden="true"
+                    className="font-display text-[1.75rem] font-semibold leading-none text-primary"
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="pt-0.5">{line}</span>
                 </li>
               ))}
-            </ul>
+            </ol>
           </div>
         </Container>
       </section>
 
       {/* Testimonials */}
-      <section className="border-y border-deep/10 bg-beige py-16 sm:py-20">
+      <section className="border-t border-ink/10 bg-parchment py-16 sm:py-24">
         <Container>
-          <div className="reveal max-w-2xl">
+          <div className="reveal text-center">
             <Eyebrow>Testimonials</Eyebrow>
-            <h2 className="text-[2.125rem] font-medium tracking-[-0.01em] text-ink sm:text-[2.75rem]">
+            <h2 className="text-[2.25rem] font-semibold leading-[1.08] text-ink sm:text-[3rem]">
               In their words
             </h2>
           </div>
-          <div className="reveal mt-10">
+          <div className="reveal mt-12">
             <Testimonials video={testimonials.video} written={testimonials.written} />
           </div>
         </Container>
       </section>
 
-      {/* Start with a free trial */}
-      <section className="bg-deep py-16 sm:py-20">
-        <Container className="grid items-center gap-12 md:grid-cols-[1.3fr_0.7fr]">
-          <div className="reveal">
-            <Eyebrow onDark>Start with a free trial</Eyebrow>
-            <h2 className="font-display text-[2rem] font-medium italic leading-tight text-stone sm:text-[2.75rem]">
-              Your first class is free
-            </h2>
-            <p className="mt-5 max-w-lg text-[16.5px] leading-[1.75] text-stone/75">
-              Not a sales call — a real, full-length session. Try the teaching style,
-              ask whatever you want to ask, and decide afterwards whether it fits.
-            </p>
-            <ul className="mt-7 grid gap-3">
-              <li className="flex gap-3 text-[15px] text-stone/90">
-                <TickIcon />
-                No card details, no commitment
-              </li>
-              <li className="flex gap-3 text-[15px] text-stone/90">
-                <TickIcon />
-                Available in every format — group, 1:1 and senior citizens
-              </li>
-              <li className="flex gap-3 text-[15px] text-stone/90">
-                <TickIcon />
-                Beginners genuinely welcome — most students start here
-              </li>
-            </ul>
-          </div>
-          <div className="reveal flex flex-col gap-3">
+      {/* Start with a free trial — dark photo banner */}
+      <section className="relative isolate overflow-hidden py-20 sm:py-28">
+        <Image
+          src="/images/banner-garden-wide.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          className="-z-10 object-cover object-[50%_30%]"
+        />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-deep/80" />
+        <Container className="reveal !max-w-3xl text-center">
+          <Eyebrow onDark>Start with a free trial</Eyebrow>
+          <h2 className="text-[2.25rem] font-semibold leading-[1.05] text-chalk sm:text-[3.5rem]">
+            Your first class
+            <span className="script mt-1 block text-[3.5rem] leading-[1.1] sm:text-[5rem]">
+              is free.
+            </span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-xl text-[16.5px] leading-[1.75] text-chalk">
+            Not a sales call — a real, full-length session. Try the teaching style, ask
+            whatever you want to ask, and decide afterwards whether it fits.
+          </p>
+          <ul className="mx-auto mt-7 grid max-w-md gap-3 text-left">
+            <li className="flex gap-3 text-[15px] text-chalk">
+              <TickIcon />
+              No card details, no commitment
+            </li>
+            <li className="flex gap-3 text-[15px] text-chalk">
+              <TickIcon />
+              Available in every format — group, 1:1 and senior citizens
+            </li>
+            <li className="flex gap-3 text-[15px] text-chalk">
+              <TickIcon />
+              Beginners genuinely welcome — most students start here
+            </li>
+          </ul>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Button
               href="/classes"
               variant="cream"
-              className="justify-center !py-4 text-base uppercase tracking-[0.06em]"
+              className="!px-9 !py-4 text-base"
               ariaLabel="Book your free trial class"
             >
               Book Your Free Trial
@@ -248,7 +288,7 @@ export default function HomePage() {
             <Button
               href={whatsappHref()}
               variant="outlineLight"
-              className="justify-center"
+              className="!py-4"
               ariaLabel="Ask about the free trial on WhatsApp"
             >
               Chat on WhatsApp

@@ -18,7 +18,7 @@ export default function PracticePage() {
           <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
             The Practice
           </p>
-          <h1 className="text-[3.25rem] font-semibold leading-[1.0] tracking-[-0.02em] text-ink sm:text-[4.25rem]">
+          <h1 className="text-[3.25rem] font-semibold leading-[1.0] text-ink sm:text-[4.25rem]">
             Yoga is not about perfect postures
           </h1>
           <p className="mt-5 text-[17px] leading-relaxed text-ink-soft">
@@ -61,7 +61,7 @@ export default function PracticePage() {
                     {style.focus.map((f) => (
                       <span
                         key={f}
-                        className="rounded-full border border-deep/15 bg-chalk px-3 py-1 text-xs text-ink-soft"
+                        className="rounded-sm border border-ink/15 bg-chalk px-3 py-1 text-xs text-ink-soft"
                       >
                         {f}
                       </span>
@@ -76,7 +76,7 @@ export default function PracticePage() {
 
       <section className="border-t border-deep/10 bg-beige py-16 text-center sm:py-20">
         <Container className="max-w-lg">
-          <h2 className="font-display text-[2.125rem] font-medium tracking-[-0.01em] text-ink sm:text-[2.75rem]">
+          <h2 className="font-display text-[2.125rem] font-semibold text-ink sm:text-[2.75rem]">
             Not sure where you&rsquo;d start?
           </h2>
           <p className="mt-3 text-[15px] text-ink-soft">

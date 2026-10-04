@@ -1,26 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #556b2f;
-  --color-primary-hover: #3f5122;
-  --color-deep: #33401f;
+  --color-primary: #4d7a5c;
+  --color-primary-hover: #3d634a;
+  --color-deep: #2c4535;
 
-  --color-stone: #fbf7ee;
-  --color-parchment: #f5f0e2;
-  /* Band background. Lightened from #DED1B4 so body copy on bands clears WCAG AA. */
-  --color-beige: #efe8d4;
-  /* Deeper beige kept for accents, borders and text on dark grounds. */
-  --color-beige-deep: #ded1b4;
-  --color-chalk: #fffdf8;
-  --color-sand: #e4dcc6;
-  --color-night: #33401f;
+  --color-stone: #f6f6f3;
+  --color-parchment: #eef1ee;
+  /* Light sage band — the reference's signature colour. */
+  --color-beige: #c2cfc6;
+  --color-beige-deep: #a9bbae;
+  --color-chalk: #ffffff;
+  --color-sand: #dfe5e0;
+  --color-night: #2c4535;
 
-  --color-ink: #33401f;
-  --color-ink-soft: #5f5e49;
-  --color-ink-faint: #61614f;
+  --color-ink: #141714;
+  --color-ink-soft: #3f4540;
+  --color-ink-faint: #555c56;
 
-  --color-gold: #6e6039;
-  --color-sage: #8a9464;
+  --color-gold: #3d634a;
+  --color-sage: #7fa08a;
   --color-moss: #4b6e52;
 }
 
@@ -45,13 +44,14 @@
   --color-sage: var(--color-sage);
   --color-moss: var(--color-moss);
 
-  --font-display: var(--font-fraunces);
-  --font-body: var(--font-work-sans);
+  --font-display: var(--font-cormorant);
+  --font-script: var(--font-alex-brush);
+  --font-body: var(--font-albert);
   --font-mono: var(--font-plex-mono);
 
-  --radius-sm: 16px;
-  --radius-md: 20px;
-  --radius-lg: 24px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
 }
 
 body {
@@ -65,6 +65,20 @@ h2,
 h3 {
   font-family: var(--font-display), ui-serif, Georgia, serif;
   text-wrap: balance;
+}
+
+h1,
+h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+/* Alex Brush script accent — section titles and swash initials. */
+.script {
+  font-family: var(--font-script), cursive;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 html {
@@ -180,13 +194,13 @@ summary:focus-visible {
   .hero-title .shimmer {
     background-image: linear-gradient(
       100deg,
-      var(--color-ink) 0%,
-      var(--color-ink) 18%,
-      var(--color-primary) 38%,
-      var(--color-gold) 50%,
-      var(--color-primary) 62%,
-      var(--color-ink) 82%,
-      var(--color-ink) 100%
+      var(--color-primary) 0%,
+      var(--color-primary) 22%,
+      var(--color-deep) 42%,
+      var(--color-moss) 50%,
+      var(--color-deep) 58%,
+      var(--color-primary) 78%,
+      var(--color-primary) 100%
     );
     background-size: 260% 100%;
     background-position: 0% 50%;
@@ -249,7 +263,7 @@ summary:focus-visible {
 
   .hero-title .shimmer {
     background-image: none !important;
-    color: var(--color-ink) !important;
+    color: var(--color-primary) !important;
   }
 
   .arrow,

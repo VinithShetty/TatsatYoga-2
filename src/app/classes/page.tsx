@@ -19,7 +19,7 @@ export default function ClassesPage() {
           <p className="mb-5 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
             Class Details
           </p>
-          <h1 className="text-[3.25rem] font-semibold leading-[1.0] tracking-[-0.02em] text-ink sm:text-[4.25rem]">
+          <h1 className="text-[3.25rem] font-semibold leading-[1.0] text-ink sm:text-[4.25rem]">
             Sessions &amp; pricing
           </h1>
           <p className="mt-5 text-[17px] leading-[1.75] text-ink-soft">
@@ -40,7 +40,7 @@ export default function ClassesPage() {
               <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-gold">
                 {format.duration} session
               </p>
-              <h2 className="mt-2 font-display text-2xl font-medium text-ink">
+              <h2 className="mt-2 font-display text-2xl font-semibold text-ink">
                 {format.name}
               </h2>
               <p className="mt-3 flex-1 text-[15px] leading-relaxed text-ink-soft">
@@ -86,10 +86,10 @@ export default function ClassesPage() {
       <section className="border-y border-deep/10 bg-beige py-16 sm:py-20">
         <Container>
           <div className="max-w-2xl">
-            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
+            <p className="mb-4 text-[12px] font-semibold uppercase tracking-[0.2em] text-deep">
               In every session
             </p>
-            <h2 className="text-[2.125rem] font-medium tracking-[-0.01em] text-ink sm:text-[2.5rem]">
+            <h2 className="text-[2.125rem] font-semibold text-ink sm:text-[2.5rem]">
               Yoga forms practised
             </h2>
           </div>

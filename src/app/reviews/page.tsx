@@ -17,7 +17,7 @@ export default function ReviewsPage() {
           <p className="mb-5 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
             Reviews
           </p>
-          <h1 className="text-[3.25rem] font-semibold leading-[1.0] tracking-[-0.02em] text-ink sm:text-[4.25rem]">
+          <h1 className="text-[3.25rem] font-semibold leading-[1.0] text-ink sm:text-[4.25rem]">
             What students say
           </h1>
         </Container>
@@ -45,7 +45,7 @@ export default function ReviewsPage() {
               <circle cx="100" cy="100" r="15" fill="currentColor" />
             </svg>
 
-            <h2 className="mt-7 font-display text-[1.75rem] font-medium text-ink sm:text-[2rem]">
+            <h2 className="mt-7 font-display text-[1.75rem] font-semibold text-ink sm:text-[2rem]">
               No reviews here yet
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[16px] leading-[1.75] text-ink-soft">

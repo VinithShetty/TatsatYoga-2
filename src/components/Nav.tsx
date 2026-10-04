@@ -130,7 +130,7 @@ export function Nav() {
       </a>
 
       {/* Desktop / tablet top bar */}
-      <header className="sticky top-0 z-40 hidden border-b border-deep/10 bg-stone/90 backdrop-blur md:block">
+      <header className="sticky top-0 z-40 hidden border-b border-ink/10 bg-chalk/95 backdrop-blur md:block">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-6 py-2 lg:px-8">
           <Link href="/" aria-label="Tat Sat Yoga — home">
             <Logo eager className="h-20" />
@@ -141,10 +141,10 @@ export function Nav() {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                className={`whitespace-nowrap text-sm tracking-[0.02em] transition-colors ${
+                className={`whitespace-nowrap border-b py-1 font-display text-[15px] font-semibold uppercase tracking-[0.14em] transition-colors ${
                   isActive(pathname, item.href)
-                    ? "text-primary font-semibold"
-                    : "text-ink-soft hover:text-ink"
+                    ? "border-primary text-primary"
+                    : "border-transparent text-ink hover:border-ink/40"
                 }`}
               >
                 {item.label}
@@ -157,14 +157,14 @@ export function Nav() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Chat on WhatsApp"
-              className="flex items-center gap-2 whitespace-nowrap rounded-full border border-deep/15 px-3 py-2 text-sm text-ink-soft transition-colors hover:border-primary hover:text-primary lg:px-3.5"
+              className="flex items-center gap-2 whitespace-nowrap rounded-sm border border-ink/20 px-3 py-2.5 font-display text-[14px] font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:border-primary hover:text-primary lg:px-3.5"
             >
               <WhatsAppIcon className="h-4.5 w-4.5" />
               <span className="hidden lg:inline">WhatsApp</span>
             </a>
             <Link
               href="/classes"
-              className="lift whitespace-nowrap rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-stone hover:bg-primary-hover hover:shadow-[0_10px_24px_rgba(51,64,31,0.28)] lg:px-6"
+              className="lift whitespace-nowrap rounded-sm bg-primary px-5 py-2.5 font-display text-[14px] font-semibold uppercase tracking-[0.12em] text-chalk hover:bg-primary-hover hover:shadow-[0_10px_24px_rgba(44,69,53,0.28)] lg:px-6"
             >
               <span className="hidden lg:inline">Book Your </span>Free Trial
             </Link>
@@ -173,7 +173,7 @@ export function Nav() {
       </header>
 
       {/* Mobile top bar: wordmark + menu + WhatsApp */}
-      <header className="sticky top-0 z-40 border-b border-deep/10 bg-stone/95 backdrop-blur md:hidden">
+      <header className="sticky top-0 z-40 border-b border-ink/10 bg-chalk/95 backdrop-blur md:hidden">
         <div className="flex items-center justify-between px-5 py-2">
           <Link href="/" aria-label="Tat Sat Yoga — home">
             <Logo eager className="h-14" />
@@ -202,11 +202,11 @@ export function Nav() {
         </div>
 
         {menuOpen && (
-          <div id="mobile-menu" className="border-t border-deep/10 bg-stone px-5 py-4">
+          <div id="mobile-menu" className="border-t border-ink/10 bg-chalk px-5 py-4">
             <ul className="space-y-3">
               {menuLinks.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-[15px] text-ink-soft hover:text-primary">
+                  <Link href={item.href} className="font-display text-[16px] font-semibold uppercase tracking-[0.14em] text-ink hover:text-primary">
                     {item.label}
                   </Link>
                 </li>
@@ -219,7 +219,7 @@ export function Nav() {
       {/* Mobile bottom tab bar, with a raised Free Trial action in the centre */}
       <nav
         aria-label="Primary"
-        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 items-end border-t border-deep/10 bg-stone/95 pb-[max(0.6rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur md:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 items-end border-t border-ink/10 bg-chalk/95 pb-[max(0.6rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur md:hidden"
       >
         {mobileTabs.slice(0, 2).map((item) => {
           const Icon = mobileIcons[item.href] ?? HomeIcon;
@@ -244,7 +244,7 @@ export function Nav() {
           className="flex flex-col items-center gap-1"
           aria-label="Book your free trial"
         >
-          <span className="-mt-7 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-stone shadow-lg ring-4 ring-stone">
+          <span className="-mt-7 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-chalk shadow-lg ring-4 ring-chalk">
             <TrialIcon className="h-6 w-6" />
           </span>
           <span className="text-[11px] font-medium text-primary">Free Trial</span>

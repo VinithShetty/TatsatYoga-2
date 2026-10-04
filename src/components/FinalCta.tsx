@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { whatsappHref } from "@/lib/site-config";
@@ -10,12 +11,20 @@ export function FinalCta({
   whatsappMessage?: string;
 }) {
   return (
-    <section className="bg-deep py-14 text-center sm:py-16">
+    <section className="relative isolate overflow-hidden py-16 text-center sm:py-24">
+      <Image
+        src="/images/banner-garden-wide.webp"
+        alt=""
+        fill
+        sizes="100vw"
+        className="-z-10 object-cover object-[50%_30%]"
+      />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-deep/80" />
       <Container className="reveal">
-        <h2 className="font-display text-[2rem] font-medium italic leading-tight text-stone sm:text-[2.75rem]">
+        <h2 className="text-[2.125rem] font-semibold leading-[1.08] text-chalk sm:text-[3rem]">
           {heading}
         </h2>
-        <div className="mt-9 flex flex-wrap justify-center gap-4">
+        <div className="mt-9 flex flex-wrap justify-center gap-3">
           <Button
             href="/classes"
             variant="cream"

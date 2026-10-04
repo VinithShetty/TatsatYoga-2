@@ -1,22 +1,28 @@
 import type { Metadata } from "next";
-import { Fraunces, Work_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Alex_Brush, Albert_Sans, Cormorant, IBM_Plex_Mono } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { RevealProvider } from "@/components/RevealProvider";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const cormorant = Cormorant({
+  variable: "--font-cormorant",
   subsets: ["latin"],
   style: ["normal", "italic"],
-  weight: ["300", "400", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const workSans = Work_Sans({
-  variable: "--font-work-sans",
+const albertSans = Albert_Sans({
+  variable: "--font-albert",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
+});
+
+const alexBrush = Alex_Brush({
+  variable: "--font-alex-brush",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -88,7 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${workSans.variable} ${plexMono.variable}`}
+      className={`${cormorant.variable} ${albertSans.variable} ${alexBrush.variable} ${plexMono.variable}`}
     >
       <body className="flex min-h-screen flex-col antialiased">
         <script
