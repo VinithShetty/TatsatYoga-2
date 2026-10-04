@@ -3,12 +3,12 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { FinalCta } from "@/components/FinalCta";
-import { classFormats, styles, whatsappHref } from "@/lib/site-config";
+import { classFormats, whatsappHref, yogaForms } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  title: "Online Yoga Classes",
+  title: "Online Yoga Classes & Pricing",
   description:
-    "Online 1:1 yoga, live group classes and senior chair yoga — Hatha, Vinyasa, Yin, breathwork and meditation. Every format starts with one free trial session.",
+    "Online group yoga, 1:1 yoga and senior citizens group classes — Hatha, Vinyasa, Yin, pranayama and meditation. Monthly pricing, and every format starts with a free trial.",
 };
 
 export default function ClassesPage() {
@@ -17,20 +17,20 @@ export default function ClassesPage() {
       <section className="pt-12 pb-8 sm:pt-16">
         <Container className="max-w-2xl">
           <p className="mb-5 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
-            Class Info
+            Class Details
           </p>
           <h1 className="text-[3.25rem] font-semibold leading-[1.0] tracking-[-0.02em] text-ink sm:text-[4.25rem]">
-            Three ways to practise
+            Sessions &amp; pricing
           </h1>
           <p className="mt-5 text-[17px] leading-[1.75] text-ink-soft">
-            Personal training online, live group sessions, or a gentle chair-based
-            practice for seniors. Every format draws on the same teaching — and every
-            one starts with a free first session.
+            Three kinds of live online session, priced monthly. No joining fee, no
+            lock-in — and every one starts with a free trial class.
           </p>
         </Container>
       </section>
 
-      <section className="pb-16 sm:pb-20">
+      {/* Types of sessions, with pricing */}
+      <section id="pricing" className="scroll-mt-28 pb-16 sm:pb-20">
         <Container className="grid gap-7 lg:grid-cols-3">
           {classFormats.map((format) => (
             <div
@@ -43,32 +43,22 @@ export default function ClassesPage() {
               <h2 className="mt-2 font-display text-2xl font-medium text-ink">
                 {format.name}
               </h2>
-              <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">
+              <p className="mt-3 flex-1 text-[15px] leading-relaxed text-ink-soft">
                 {format.description}
               </p>
 
-              <ul className="mt-5 flex-1 space-y-2.5 border-t border-deep/10 pt-5">
-                {format.whoFor.slice(0, 3).map((point) => (
-                  <li
-                    key={point}
-                    className="flex gap-2.5 text-[14px] leading-relaxed text-ink-soft"
-                  >
-                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-gold" />
-                    {point}
-                  </li>
+              <dl className="mt-6 divide-y divide-deep/10 border-y border-deep/10">
+                {format.pricing.map((tier) => (
+                  <div key={tier.schedule} className="flex items-baseline justify-between py-3.5">
+                    <dt className="text-sm text-ink-soft">{tier.schedule}</dt>
+                    <dd className="font-display text-xl font-medium text-ink">{tier.price}</dd>
+                  </div>
                 ))}
-              </ul>
+              </dl>
 
-              <p className="mt-5 text-sm text-ink">
-                From{" "}
-                <span className="font-medium">{format.pricing[1].price}</span>
-              </p>
-
-              <div className="mt-5 flex flex-col gap-3">
+              <div className="mt-6 flex flex-col gap-3">
                 <Button
-                  href={whatsappHref(
-                    `Hi! I'd like to book a free trial for ${format.name}.`,
-                  )}
+                  href={whatsappHref(`Hi! I'd like to book a free trial for ${format.name}.`)}
                   variant="primary"
                   className="justify-center"
                   ariaLabel={`Book a free trial for ${format.name}`}
@@ -79,73 +69,59 @@ export default function ClassesPage() {
                   href={`/classes/${format.slug}`}
                   className="arrow-parent text-center text-sm font-medium text-primary hover:text-primary-hover"
                 >
-                  Full details <span className="arrow">→</span>
+                  What a session looks like <span className="arrow">→</span>
                 </Link>
               </div>
             </div>
           ))}
         </Container>
-      </section>
-
-      {/* What you'll practise */}
-      <section className="border-y border-deep/10 bg-beige py-16 sm:py-20">
         <Container>
-          <div className="grid gap-8 border-b border-deep/10 pb-10 md:grid-cols-[1fr_auto] md:items-end">
-            <div className="max-w-2xl">
-              <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
-                What You&rsquo;ll Practise
-              </p>
-              <h2 className="text-[2.125rem] font-medium tracking-[-0.01em] text-ink sm:text-[2.5rem]">
-                One teaching, many doors in
-              </h2>
-              <p className="mt-4 text-[16px] leading-[1.75] text-ink-soft">
-                Sessions draw from all of these rather than locking you into a single
-                style. Which parts come forward depends on your body and your goals.
-              </p>
-            </div>
-            <Link
-              href="/practice"
-              className="arrow-parent whitespace-nowrap text-sm font-medium text-primary hover:text-primary-hover"
-            >
-              Read more on the practice <span className="arrow">→</span>
-            </Link>
-          </div>
-
-          <div className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-            {styles.map((style) => (
-              <Link
-                key={style.id}
-                href={`/practice#${style.id}`}
-                className="border-t border-deep/10 pt-5"
-              >
-                <h3 className="font-display text-[17px] font-medium text-ink">
-                  {style.name}
-                </h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-ink-soft">
-                  {style.description}
-                </p>
-                <p className="mt-3 text-[12.5px] text-ink-faint">
-                  {style.focus.slice(0, 3).join(" · ")}
-                </p>
-              </Link>
-            ))}
-          </div>
+          <p className="mt-6 text-center text-sm text-ink-faint">
+            All prices per month. Every plan begins with one free trial session.
+          </p>
         </Container>
       </section>
 
-      <section className="py-14 sm:py-16">
-        <Container className="flex flex-wrap items-center justify-between gap-6">
-          <div>
-            <h2 className="font-display text-2xl font-medium text-ink">
-              Looking for prices?
-            </h2>
-            <p className="mt-2 text-[15px] text-ink-soft">
-              Monthly plans for every format, from ₹1,000.
+      {/* Yoga forms practised */}
+      <section className="border-y border-deep/10 bg-beige py-16 sm:py-20">
+        <Container>
+          <div className="max-w-2xl">
+            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
+              In every session
             </p>
+            <h2 className="text-[2.125rem] font-medium tracking-[-0.01em] text-ink sm:text-[2.5rem]">
+              Yoga forms practised
+            </h2>
           </div>
-          <Button href="/pricing" variant="outline">
-            See Pricing
-          </Button>
+
+          <ul className="mt-10 divide-y divide-deep/10 border-y border-deep/10">
+            {yogaForms.map((form) => (
+              <li
+                key={form.name}
+                className="grid gap-3 py-6 md:grid-cols-[0.8fr_1.5fr_1fr] md:items-baseline md:gap-10"
+              >
+                <h3 className="font-display text-[1.375rem] font-medium text-ink">
+                  {form.name}
+                </h3>
+                <p className="text-[15.5px] leading-relaxed text-ink-soft">{form.description}</p>
+                <p className="flex gap-2 text-[14px] leading-relaxed text-ink">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    className="mt-0.5 h-4 w-4 flex-none text-primary"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="8.5" />
+                    <path d="M12 7.5V12l3 2" />
+                  </svg>
+                  {form.frequency}
+                </p>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 

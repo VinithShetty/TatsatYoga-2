@@ -84,11 +84,12 @@ function MenuIcon({ className = "", open = false }: { className?: string; open?:
   );
 }
 
-function PricingIcon({ className = "" }: { className?: string }) {
+function FaqIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="M12 4.5v15" />
-      <path d="M15.5 8.2c-.6-1.1-1.9-1.8-3.5-1.8-2 0-3.4 1-3.4 2.4 0 3.2 7 1.6 7 5 0 1.5-1.5 2.6-3.6 2.6-1.7 0-3.1-.7-3.7-1.9" />
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M9.6 9.4a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.7" />
+      <path d="M12 16.9h.01" />
     </svg>
   );
 }
@@ -96,7 +97,7 @@ function PricingIcon({ className = "" }: { className?: string }) {
 const mobileIcons: Record<string, (props: { className?: string }) => React.JSX.Element> = {
   "/": HomeIcon,
   "/classes": ClassesIcon,
-  "/pricing": PricingIcon,
+  "/faq": FaqIcon,
   "/practice": PracticeIcon,
   "/about": AboutIcon,
   "/reviews": ReviewsIcon,
@@ -109,7 +110,12 @@ function isActive(pathname: string, href: string) {
 
 export function Nav() {
   const pathname = usePathname();
-  const mobileTabs = primaryNav.filter((item) => item.href !== "/about");
+  const inMenuOnly = ["/about", "/contact"];
+  const mobileTabs = primaryNav.filter((item) => !inMenuOnly.includes(item.href));
+  const menuLinks = [
+    ...primaryNav.filter((item) => inMenuOnly.includes(item.href)),
+    ...footerNav,
+  ];
   // Remember which path the menu was opened on; navigating anywhere closes it.
   const [menuOpenOn, setMenuOpenOn] = useState<string | null>(null);
   const menuOpen = menuOpenOn === pathname;
@@ -198,12 +204,7 @@ export function Nav() {
         {menuOpen && (
           <div id="mobile-menu" className="border-t border-deep/10 bg-stone px-5 py-4">
             <ul className="space-y-3">
-              <li>
-                <Link href="/about" className="text-[15px] text-ink-soft hover:text-primary">
-                  About
-                </Link>
-              </li>
-              {footerNav.map((item) => (
+              {menuLinks.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-[15px] text-ink-soft hover:text-primary">
                     {item.label}

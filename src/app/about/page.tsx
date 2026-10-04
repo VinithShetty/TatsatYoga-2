@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { siteConfig } from "@/lib/site-config";
 import { FinalCta } from "@/components/FinalCta";
@@ -7,7 +7,7 @@ import { Photo } from "@/components/Photo";
 export const metadata: Metadata = {
   title: "About Mohini Rai",
   description:
-    "Mohini Rai is a 300-hour certified yoga teacher trained at Vinyasa Yogashram, Rishikesh — teaching Hatha, Vinyasa, Yin, breathwork and meditation online, beginner-friendly.",
+    "Mohini Rai is a 300-hour certified yoga teacher trained at Vinyasa Yogashram, Rishikesh â€” teaching Hatha, Vinyasa, Yin, breathwork and meditation online, beginner-friendly.",
 };
 
 export default function AboutPage() {
@@ -25,12 +25,12 @@ export default function AboutPage() {
             <p className="mt-6 text-[15px] leading-relaxed text-ink-soft">
               My journey began not as a carefully planned destination, but as a
               quiet unfolding. What started as a practice slowly became a way of
-              understanding myself — my body, my breath, my thoughts, and the
+              understanding myself â€” my body, my breath, my thoughts, and the
               spaces in between.
             </p>
             <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
               I&rsquo;m a 300-hour certified yoga teacher, trained at Vinyasa
-              Yogashram, Rishikesh, with several years of experience teaching yoga —
+              Yogashram, Rishikesh, with several years of experience teaching yoga â€”
               both offline and, for the students I work with now, entirely online.
             </p>
           </div>
@@ -51,7 +51,7 @@ export default function AboutPage() {
             It is a practice of listening rather than forcing, building strength
             while learning softness, and creating a deeper connection between
             body and mind. Classes are beginner-friendly and thoughtfully adapted
-            to individual needs — every body has its own rhythm, and every
+            to individual needs â€” every body has its own rhythm, and every
             journey its own pace.
           </p>
         </Container>
@@ -79,6 +79,22 @@ export default function AboutPage() {
               </li>
             ))}
           </ul>
+        </Container>
+      </section>
+
+      {/* On the mat */}
+      <section className="pb-16 sm:pb-20">
+        <Container className="grid gap-6 sm:grid-cols-2">
+          <Photo
+            src="/images/yoga-lakeside-twist.webp"
+            alt="Mohini Rai in a seated twist on a mat beside a still lake"
+            sizes="(min-width: 640px) 50vw, 100vw"
+          />
+          <Photo
+            src="/images/reverse-prayer-garden.webp"
+            alt="Mohini Rai kneeling on a block-printed mat in a flowering garden, hands in reverse prayer"
+            sizes="(min-width: 640px) 50vw, 100vw"
+          />
         </Container>
       </section>
 

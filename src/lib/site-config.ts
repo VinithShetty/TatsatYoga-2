@@ -42,14 +42,13 @@ export const primaryNav: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Classes", href: "/classes" },
-  { label: "Pricing", href: "/pricing" },
   { label: "Reviews", href: "/reviews" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const footerNav: NavItem[] = [
   { label: "The Practice", href: "/practice" },
-  { label: "FAQ", href: "/faq" },
-  { label: "Contact", href: "/contact" },
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
 ];
@@ -122,28 +121,6 @@ export type ClassFormat = {
 
 export const classFormats: ClassFormat[] = [
   {
-    slug: "private",
-    name: "Online 1:1 Yoga",
-    duration: "1 hour",
-    description:
-      "Personalised sessions built around your goals, your fitness level and the way your body actually moves — not a fixed class plan.",
-    pricing: [
-      { schedule: "5 days / week", price: "₹5,000 / month" },
-      { schedule: "3 days / week", price: "₹3,000 / month" },
-    ],
-    keyword: "online 1:1 yoga classes",
-    metaDescription:
-      "Personal yoga training online, 1:1 with a 300-hour certified teacher. Sessions adapt Hatha, Vinyasa, Yin and breathwork to you. First session free.",
-    whoFor: [
-      "You want a plan built around your body, not a generic class",
-      "You're recovering from an injury or managing a condition and need real adaptation",
-      "You've tried yoga before and want to go deeper, faster",
-      "Group class timings never quite work with your schedule",
-    ],
-    sessionLooksLike:
-      "A full hour, just the two of you on video. It usually opens with a short check-in — how you're feeling, what's tight, what's changed since last time — before moving into a sequence drawn from Hatha, Vinyasa or Yin depending on what that day calls for.",
-  },
-  {
     slug: "group",
     name: "Online Group Yoga",
     duration: "1 hour",
@@ -164,6 +141,28 @@ export const classFormats: ClassFormat[] = [
     ],
     sessionLooksLike:
       "A live class over video, kept small enough that form still gets corrected in real time. Expect a warm-up, a main sequence, and a few minutes of stillness at the end — beginner modifications are always offered alongside the full pose.",
+  },
+  {
+    slug: "private",
+    name: "Online 1:1 Yoga",
+    duration: "1 hour",
+    description:
+      "Personalised sessions built around your goals, your fitness level and the way your body actually moves — not a fixed class plan.",
+    pricing: [
+      { schedule: "5 days / week", price: "₹5,000 / month" },
+      { schedule: "3 days / week", price: "₹3,000 / month" },
+    ],
+    keyword: "online 1:1 yoga classes",
+    metaDescription:
+      "Personal yoga training online, 1:1 with a 300-hour certified teacher. Sessions adapt Hatha, Vinyasa, Yin and breathwork to you. First session free.",
+    whoFor: [
+      "You want a plan built around your body, not a generic class",
+      "You're recovering from an injury or managing a condition and need real adaptation",
+      "You've tried yoga before and want to go deeper, faster",
+      "Group class timings never quite work with your schedule",
+    ],
+    sessionLooksLike:
+      "A full hour, just the two of you on video. It usually opens with a short check-in — how you're feeling, what's tight, what's changed since last time — before moving into a sequence drawn from Hatha, Vinyasa or Yin depending on what that day calls for.",
   },
   {
     slug: "chair-yoga-seniors",
@@ -269,3 +268,69 @@ export const benefits = [
   "Support for sedentary lifestyles",
   "Overall wellbeing",
 ];
+
+
+/** "Yoga forms practised" on Class Details — the client's own descriptions. */
+export const yogaForms: { name: string; description: string; frequency: string }[] = [
+  {
+    name: "Hatha Yoga",
+    description: "Mindful, steady practice focusing on strength, alignment and awareness.",
+    frequency: "Most often practised in the session",
+  },
+  {
+    name: "Vinyasa Yoga",
+    description: "Dynamic flows connecting breath with movement.",
+    frequency: "Once or twice a week, depending on the ability and proficiency of the practitioners",
+  },
+  {
+    name: "Yin Yoga",
+    description: "Slow, restorative practice with longer holds to release tension and improve flexibility.",
+    frequency: "Once a week",
+  },
+  {
+    name: "Pranayama / Breathwork",
+    description: "Simple pranayama practices to calm, energise and regulate the mind and body.",
+    frequency: "Every day, at the end of the session",
+  },
+  {
+    name: "Meditation",
+    description: "Guided practices to cultivate stillness, focus and inner awareness.",
+    frequency: "On request, for those interested",
+  },
+];
+
+/** Homepage "Yoga is for you if…" checklist — client copy. */
+export const yogaIsForYouIf = [
+  "You spend most of your day sitting at a desk",
+  "You lead a busy, high-stress lifestyle",
+  "You feel stiff or sluggish from lack of movement",
+  "You want to get stronger and more flexible",
+  "You struggle to make time for yourself and your wellbeing",
+  "You want to improve posture, mobility and body awareness",
+  "You’re looking for a way to slow down and reconnect",
+  "You want a sustainable practice, not another intense workout",
+  "You want to be healthy and move freely in your old age",
+];
+
+/**
+ * Homepage testimonials: one video and two written.
+ * Leave `quote` / `video` empty until real content arrives — the homepage
+ * shows a clearly marked "awaiting" slot rather than inventing a review.
+ *
+ * Video: drop an .mp4 in public/videos/ and set `video.src`, or set
+ * `video.youtubeId` for a YouTube (incl. Shorts) video.
+ */
+export type Testimonial = {
+  name: string;
+  detail: string;
+  quote?: string;
+  video?: { src?: string; youtubeId?: string; poster?: string };
+};
+
+export const testimonials: { video: Testimonial; written: Testimonial[] } = {
+  video: { name: "", detail: "", video: {} },
+  written: [
+    { name: "", detail: "", quote: "" },
+    { name: "", detail: "", quote: "" },
+  ],
+};

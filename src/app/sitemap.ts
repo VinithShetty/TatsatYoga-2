@@ -5,7 +5,7 @@ import { siteConfig, classFormats } from "@/lib/site-config";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/about", "/classes", "/pricing", "/practice", "/reviews", "/faq", "/contact"];
+  const staticRoutes = ["", "/about", "/classes", "/practice", "/reviews", "/faq", "/contact"];
   const formatRoutes = classFormats.map((f) => `/classes/${f.slug}`);
 
   return [...staticRoutes, ...formatRoutes].map((path) => ({
