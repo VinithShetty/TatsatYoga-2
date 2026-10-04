@@ -1,6 +1,7 @@
 import Image, { getImageProps } from "next/image";
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
+import { Enso } from "@/components/Enso";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Photo } from "@/components/Photo";
 import { Testimonials } from "@/components/Testimonials";
@@ -76,6 +77,13 @@ export default function HomePage() {
           className="absolute inset-0 -z-[5] hidden bg-gradient-to-r from-parchment from-34% via-parchment/70 via-48% to-transparent to-62% md:block"
         />
 
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-16 top-6 -z-[4] h-64 w-64 text-primary/[0.12] md:top-1/2 md:right-auto md:-left-32 md:h-[560px] md:w-[560px] md:-translate-y-1/2 md:text-primary/[0.09]"
+        >
+          <Enso className="h-full w-full" />
+        </div>
+
         <Container className="relative flex flex-col pt-9 pb-6 md:min-h-[600px] md:justify-center md:py-16 lg:min-h-[640px]">
           <div className="rise rise-after-title max-w-[34rem]">
             <Eyebrow>Online yoga with {siteConfig.teacherName}</Eyebrow>
@@ -96,6 +104,7 @@ export default function HomePage() {
               <Button
                 href="/classes"
                 variant="primary"
+                className="sheen"
                 ariaLabel="Book your free trial — view class details"
               >
                 Book Your Free Trial
@@ -253,7 +262,8 @@ export default function HomePage() {
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-deep/80" />
         <Container className="reveal max-w-3xl text-center">
           <Eyebrow tone="light">Start with a free trial</Eyebrow>
-          <h2 className="text-[2.25rem] font-semibold leading-[1.05] text-chalk sm:text-[3.5rem]">
+          <h2 className="relative isolate text-[2.25rem] font-semibold leading-[1.05] text-chalk sm:text-[3.5rem]">
+            <Enso className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[230px] w-[230px] -translate-x-1/2 -translate-y-1/2 text-chalk/25 sm:h-[330px] sm:w-[330px]" />
             Your first class{" "}
             <span className="script mt-1 block text-[3.5rem] leading-[1.1] sm:text-[5rem]">
               is free.
@@ -281,7 +291,7 @@ export default function HomePage() {
             <Button
               href="/classes"
               variant="cream"
-              className="!px-9 !py-4 text-base"
+              className="sheen !px-9 !py-4 text-base"
               ariaLabel="Book your free trial class"
             >
               Book Your Free Trial

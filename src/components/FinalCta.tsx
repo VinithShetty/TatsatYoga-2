@@ -28,6 +28,7 @@ export function FinalCta({
           <Button
             href="/classes"
             variant="cream"
+            className="sheen"
             ariaLabel="Book your free trial — view class formats"
           >
             Book Your Free Trial

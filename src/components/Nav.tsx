@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { footerNav, primaryNav, whatsappHref } from "@/lib/site-config";
 import { Logo } from "@/components/Logo";
 
@@ -108,6 +108,106 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+type NavItem = (typeof primaryNav)[number];
+
+function TabLink({ item, active }: { item: NavItem; active: boolean }) {
+  const Icon = mobileIcons[item.href] ?? HomeIcon;
+  return (
+    <Link
+      href={item.href}
+      aria-current={active ? "page" : undefined}
+      className={`relative z-10 flex flex-col items-center gap-1 py-1.5 text-[11px] transition-colors duration-300 ${
+        active ? "font-semibold text-deep" : "font-medium text-ink"
+      }`}
+    >
+      <Icon className={`h-5 w-5 transition-transform duration-500 ${active ? "-translate-y-px scale-110" : ""}`} />
+      {item.label}
+    </Link>
+  );
+}
+
+/**
+ * Desktop links with a frosted-glass pill that glides to whichever link is
+ * hovered or focused, and settles back on the current page. Positioning is
+ * written straight to the pill's style (no re-render per mouse move).
+ */
+function DesktopLinks({ pathname }: { pathname: string }) {
+  const navRef = useRef<HTMLElement>(null);
+  const pillRef = useRef<HTMLSpanElement>(null);
+  const placed = useRef(false);
+
+  const moveTo = useCallback((el: HTMLElement | null, instant = false) => {
+    const pill = pillRef.current;
+    if (!pill) return;
+    if (!el) {
+      pill.style.opacity = "0";
+      return;
+    }
+    const jump = instant || !placed.current;
+    if (jump) pill.style.transition = "none";
+    pill.style.width = `${el.offsetWidth}px`;
+    pill.style.transform = `translateX(${el.offsetLeft}px)`;
+    pill.style.opacity = "1";
+    if (jump) {
+      void pill.offsetWidth; // commit the jump before re-enabling the glide
+      pill.style.transition = "";
+    }
+    placed.current = true;
+  }, []);
+
+  const current = useCallback(
+    () => navRef.current?.querySelector<HTMLElement>('a[aria-current="page"]') ?? null,
+    [],
+  );
+
+  useLayoutEffect(() => {
+    moveTo(current());
+  }, [pathname, moveTo, current]);
+
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const settle = () => moveTo(current(), true);
+    const ro = new ResizeObserver(settle);
+    ro.observe(nav);
+    document.fonts?.ready.then(settle);
+    return () => ro.disconnect();
+  }, [moveTo, current]);
+
+  return (
+    <nav
+      ref={navRef}
+      aria-label="Primary"
+      onMouseLeave={() => moveTo(current())}
+      className="relative flex items-center gap-1 lg:gap-2"
+    >
+      <span
+        ref={pillRef}
+        aria-hidden="true"
+        className="glass-pill pointer-events-none absolute top-0 left-0 h-full rounded-md opacity-0"
+      />
+      {primaryNav.map((item) => {
+        const active = isActive(pathname, item.href);
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            aria-current={active ? "page" : undefined}
+            onMouseEnter={(e) => moveTo(e.currentTarget)}
+            onFocus={(e) => moveTo(e.currentTarget)}
+            onBlur={() => moveTo(current())}
+            className={`relative z-10 whitespace-nowrap rounded-md px-3 py-2 font-display text-[15px] font-semibold uppercase tracking-[0.14em] transition-colors duration-300 ${
+              active ? "text-deep" : "text-ink hover:text-deep"
+            }`}
+          >
+            {item.label}
+          </Link>
+        );
+      })}
+    </nav>
+  );
+}
+
 export function Nav() {
   const pathname = usePathname();
   const inMenuOnly = ["/about", "/contact"];
@@ -119,6 +219,8 @@ export function Nav() {
   // Remember which path the menu was opened on; navigating anywhere closes it.
   const [menuOpenOn, setMenuOpenOn] = useState<string | null>(null);
   const menuOpen = menuOpenOn === pathname;
+  const slots = [mobileTabs[0], mobileTabs[1], "trial" as const, mobileTabs[2], mobileTabs[3]];
+  const activeSlot = slots.findIndex((item) => item !== "trial" && isActive(pathname, item.href));
 
   return (
     <>
@@ -138,20 +240,7 @@ export function Nav() {
           <Link href="/" aria-label="Tat Sat Yoga — home" className="transition-opacity hover:opacity-80">
             <Logo eager className="h-16" />
           </Link>
-          <nav aria-label="Primary" className="flex items-center gap-5 lg:gap-8">
-            {primaryNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                className={`link-draw whitespace-nowrap pb-0.5 font-display text-[15px] font-semibold uppercase tracking-[0.14em] transition-colors duration-300 ${
-                  isActive(pathname, item.href) ? "text-primary" : "text-ink hover:text-primary"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+          <DesktopLinks pathname={pathname} />
           <div className="flex flex-none items-center gap-3">
             <a
               href={whatsappHref()}
@@ -165,7 +254,7 @@ export function Nav() {
             </a>
             <Link
               href="/classes"
-              className="lift whitespace-nowrap rounded-sm bg-primary px-5 py-2.5 font-display text-[14px] font-semibold uppercase tracking-[0.12em] text-chalk hover:bg-primary-hover hover:shadow-[0_10px_24px_rgba(44,69,53,0.28)] lg:px-6"
+              className="lift sheen whitespace-nowrap rounded-sm bg-primary px-5 py-2.5 font-display text-[14px] font-semibold uppercase tracking-[0.12em] text-chalk hover:bg-primary-hover hover:shadow-[0_10px_24px_rgba(44,69,53,0.28)] lg:px-6"
             >
               <span className="hidden lg:inline">Book Your </span>Free Trial
             </Link>
@@ -220,58 +309,39 @@ export function Nav() {
         )}
       </header>
 
-      {/* Mobile bottom tab bar, with a raised Free Trial action in the centre */}
+      {/* Mobile bottom tab bar: floating glass, a bubble that glides to the
+          active tab, and a raised Free Trial action that breathes. */}
       <nav
         aria-label="Primary"
         style={{ viewTransitionName: "site-tabbar" }}
-        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 items-end border-t border-ink/10 bg-chalk/95 pb-[max(0.6rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur md:hidden"
+        className="glass-bar fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-40 grid grid-cols-5 items-end rounded-[22px] p-1.5 md:hidden"
       >
-        {mobileTabs.slice(0, 2).map((item) => {
-          const Icon = mobileIcons[item.href] ?? HomeIcon;
-          const active = isActive(pathname, item.href);
-          return (
+        <span
+          aria-hidden="true"
+          className="glass-bubble pointer-events-none absolute top-1.5 bottom-1.5 left-1.5 w-[calc((100%-0.75rem)/5)] rounded-[16px]"
+          style={{
+            transform: `translateX(${Math.max(activeSlot, 0) * 100}%)`,
+            opacity: activeSlot < 0 ? 0 : 1,
+          }}
+        />
+        {slots.map((item, slot) =>
+          item === "trial" ? (
             <Link
-              key={item.href}
-              href={item.href}
-              aria-current={active ? "page" : undefined}
-              className={`flex flex-col items-center gap-1 py-1 text-[11px] ${
-                active ? "text-primary font-medium" : "text-ink-soft"
-              }`}
+              key="trial"
+              href="/classes"
+              className="relative z-10 flex flex-col items-center gap-1 pb-1"
+              aria-label="Book your free trial"
             >
-              <Icon className="h-5 w-5" />
-              {item.label}
+              <span className="breathe-btn relative -mt-8 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-chalk shadow-[0_8px_22px_rgba(44,69,53,0.35)] ring-4 ring-chalk/90">
+                <span aria-hidden="true" className="breath-halo absolute inset-0 rounded-full" />
+                <TrialIcon className="relative h-6 w-6" />
+              </span>
+              <span className="text-[11px] font-semibold text-primary-hover">Free Trial</span>
             </Link>
-          );
-        })}
-
-        <Link
-          href="/classes"
-          className="flex flex-col items-center gap-1"
-          aria-label="Book your free trial"
-        >
-          <span className="-mt-7 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-chalk shadow-lg ring-4 ring-chalk transition-transform duration-300 active:scale-95">
-            <TrialIcon className="h-6 w-6" />
-          </span>
-          <span className="text-[11px] font-medium text-primary">Free Trial</span>
-        </Link>
-
-        {mobileTabs.slice(2).map((item) => {
-          const Icon = mobileIcons[item.href] ?? HomeIcon;
-          const active = isActive(pathname, item.href);
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              aria-current={active ? "page" : undefined}
-              className={`flex flex-col items-center gap-1 py-1 text-[11px] ${
-                active ? "text-primary font-medium" : "text-ink-soft"
-              }`}
-            >
-              <Icon className="h-5 w-5" />
-              {item.label}
-            </Link>
-          );
-        })}
+          ) : (
+            <TabLink key={item.href} item={item} active={slot === activeSlot} />
+          ),
+        )}
       </nav>
     </>
   );
