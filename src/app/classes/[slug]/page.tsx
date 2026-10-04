@@ -57,7 +57,7 @@ export default async function ClassFormatPage({
           <Photo
             src="/images/reverse-prayer-garden.webp"
             alt="Mohini Rai kneeling on a block-printed mat in a flowering garden, hands joined in reverse prayer"
-            aspect="aspect-[4/3] md:aspect-[4/5]"
+            aspect="aspect-[4/3] md:aspect-[4/5] lg:aspect-[1/1]"
             position="object-[50%_30%]"
             sizes="(min-width: 768px) 38vw, 100vw"
             eager

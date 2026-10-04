@@ -159,11 +159,11 @@ export default function HomePage() {
 
       {/* Your practice, your pace — script-titled story block beside a portrait */}
       <section className="py-14 sm:py-20">
-        <Container className="grid items-center gap-8 md:grid-cols-[0.85fr_1.15fr] md:gap-16">
+        <Container className="grid items-center gap-8 md:grid-cols-[0.85fr_1.15fr] md:gap-16 lg:grid-cols-[0.75fr_1.25fr]">
           <Photo
             src="/images/meditation-temple-doorway.webp"
             alt="Mohini Rai seated in meditation before a carved stone temple doorway"
-            aspect="aspect-[4/3] md:aspect-[4/5]"
+            aspect="aspect-[4/3] md:aspect-[4/5] lg:aspect-[1/1]"
             position="object-[50%_62%]"
             sizes="(min-width: 768px) 42vw, 100vw"
           />

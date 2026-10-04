@@ -7,7 +7,7 @@ export function Footer() {
     // The mobile tab bar is fixed over the bottom of the page, so the footer
     // (not <main>) carries the clearance — otherwise the copyright is hidden.
     <footer className="rounded-t-[28px] bg-primary text-chalk sm:rounded-t-[40px]">
-      <div className="mx-auto max-w-6xl px-5 pt-10 pb-[calc(6.5rem+env(safe-area-inset-bottom))] sm:px-8 md:pt-12 md:pb-8">
+      <div className="px-5 pt-10 pb-[calc(6.5rem+env(safe-area-inset-bottom))] sm:px-8 md:pt-12 md:pb-8 lg:px-12">
         <div className="grid gap-8 md:grid-cols-[1.3fr_1fr_auto] md:items-start md:gap-12">
           <div className="flex items-center gap-4">
             {/* The logo is dark-on-transparent, so it sits on a white disc. */}

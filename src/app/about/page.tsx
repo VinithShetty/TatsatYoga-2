@@ -67,7 +67,7 @@ export default function AboutPage() {
           <Photo
             src="/images/meditation-temple-doorway.webp"
             alt="Mohini Rai seated in meditation before a carved stone temple doorway"
-            aspect="aspect-[4/3] md:aspect-[4/5]"
+            aspect="aspect-[4/3] md:aspect-[4/5] lg:aspect-[1/1]"
             position="object-[50%_62%]"
             sizes="(min-width: 768px) 40vw, 100vw"
             eager

@@ -134,7 +134,7 @@ export function Nav() {
         className="nav-elevate sticky top-0 z-40 hidden border-b border-ink/10 bg-chalk/85 backdrop-blur-xl backdrop-saturate-150 md:block"
         style={{ viewTransitionName: "site-header" }}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-6 py-1.5 lg:px-8">
+        <div className="flex items-center justify-between gap-5 px-8 py-1.5 lg:px-12">
           <Link href="/" aria-label="Tat Sat Yoga — home" className="transition-opacity hover:opacity-80">
             <Logo eager className="h-16" />
           </Link>

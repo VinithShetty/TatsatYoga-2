@@ -57,16 +57,18 @@ export default function FaqPage() {
       <PageHeader eyebrow="FAQ" title="Questions," script="answered." />
 
       <section className="py-8 sm:py-12">
-        <Container className="stagger max-w-3xl divide-y divide-ink/10">
-          {faqs.map((faq) => (
-            <details key={faq.q} className="smooth group py-1">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-4 font-display text-[1.25rem] font-semibold text-ink transition-colors hover:text-primary [&::-webkit-details-marker]:hidden">
-                {faq.q}
-                <span aria-hidden="true" className="flex h-8 w-8 flex-none items-center justify-center rounded-full border border-ink/15 text-lg leading-none text-primary transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-open:rotate-45">+</span>
-              </summary>
-              <p className="max-w-2xl pb-5 text-[15.5px] leading-relaxed text-ink-soft">{faq.a}</p>
-            </details>
-          ))}
+        <Container>
+          <div className="stagger max-w-3xl divide-y divide-ink/10">
+            {faqs.map((faq) => (
+              <details key={faq.q} className="smooth group py-1">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-4 font-display text-[1.25rem] font-semibold text-ink transition-colors hover:text-primary [&::-webkit-details-marker]:hidden">
+                  {faq.q}
+                  <span aria-hidden="true" className="flex h-8 w-8 flex-none items-center justify-center rounded-full border border-ink/15 text-lg leading-none text-primary transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-open:rotate-45">+</span>
+                </summary>
+                <p className="max-w-2xl pb-5 text-[15.5px] leading-relaxed text-ink-soft">{faq.a}</p>
+              </details>
+            ))}
+          </div>
         </Container>
       </section>
 

@@ -1,10 +1,15 @@
 import type { ReactNode } from "react";
 
 /**
- * Centred page column. Pass a `max-w-*` class to narrow it; the default
- * `max-w-6xl` is dropped then, because two max-widths in one class list
- * resolve by stylesheet order, not by which was written last.
+ * Full-width page column with side gutters of 20 / 32 / 48px (phone / tablet
+ * / desktop) — never more than 50px. Header and footer use the same gutters.
+ *
+ * Passing a `max-w-*` class makes it a narrow, centred column instead; that's
+ * for centred text compositions (CTA bands), where long lines would be hard
+ * to read.
  */
+export const gutters = "px-5 sm:px-8 lg:px-12";
+
 export function Container({
   children,
   className = "",
@@ -12,6 +17,5 @@ export function Container({
   children: ReactNode;
   className?: string;
 }) {
-  const width = /(^|\s)!?max-w-/.test(className) ? "" : "max-w-6xl";
-  return <div className={`mx-auto ${width} px-5 sm:px-8 ${className}`}>{children}</div>;
+  return <div className={`mx-auto w-full ${gutters} ${className}`}>{children}</div>;
 }

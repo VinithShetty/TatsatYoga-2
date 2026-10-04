@@ -33,7 +33,7 @@ export default function PracticePage() {
       </PageHeader>
 
       <section className="py-10 sm:py-14">
-        <Container className="stagger grid gap-5 md:grid-cols-2 md:gap-6">
+        <Container className="stagger grid gap-5 md:grid-cols-2 md:gap-6 xl:grid-cols-4">
           {styles.map((style) => (
             <article
               key={style.id}
