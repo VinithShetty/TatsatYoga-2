@@ -4,69 +4,54 @@ import { footerNav, primaryNav, siteConfig, whatsappHref } from "@/lib/site-conf
 
 export function Footer() {
   return (
-    <footer>
-      <div className="rounded-t-[28px] bg-primary text-chalk sm:rounded-t-[40px]">
-        <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-16">
-          <div className="flex flex-col gap-10 md:flex-row md:justify-between">
-            <div className="flex flex-col items-start">
-              {/* The logo is dark-on-transparent, so it sits on a white disc. */}
-              <span className="flex h-36 w-36 items-center justify-center rounded-full bg-chalk">
-                <Logo className="h-32" />
-              </span>
-              <p className="mt-5 max-w-xs text-[15px] leading-relaxed text-chalk">
-                {siteConfig.tagline} — online yoga with {siteConfig.teacherName}, a
-                300-hour certified teacher.
+    // The mobile tab bar is fixed over the bottom of the page, so the footer
+    // (not <main>) carries the clearance — otherwise the copyright is hidden.
+    <footer className="rounded-t-[28px] bg-primary text-chalk sm:rounded-t-[40px]">
+      <div className="mx-auto max-w-6xl px-5 pt-10 pb-[calc(6.5rem+env(safe-area-inset-bottom))] sm:px-8 md:pt-12 md:pb-8">
+        <div className="grid gap-8 md:grid-cols-[1.3fr_1fr_auto] md:items-start md:gap-12">
+          <div className="flex items-center gap-4">
+            {/* The logo is dark-on-transparent, so it sits on a white disc. */}
+            <span className="flex h-20 w-20 flex-none items-center justify-center rounded-full bg-chalk">
+              <Logo className="h-[4.5rem]" />
+            </span>
+            <div>
+              <p className="font-display text-[1.375rem] font-semibold uppercase leading-tight tracking-[0.08em]">
+                {siteConfig.tagline}
               </p>
-              <a
-                href={whatsappHref()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 text-[15px] font-semibold text-chalk underline decoration-chalk/50 underline-offset-4 hover:decoration-chalk"
-              >
-                WhatsApp {siteConfig.whatsappDisplay}
-              </a>
-            </div>
-
-            <div className="flex gap-16">
-              <div>
-                <p className="mb-4 font-display text-[15px] font-semibold uppercase tracking-[0.16em] text-chalk">
-                  Explore
-                </p>
-                <ul className="space-y-2.5">
-                  {primaryNav.map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        className="text-[15px] text-chalk hover:underline hover:underline-offset-4"
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <p className="mb-4 font-display text-[15px] font-semibold uppercase tracking-[0.16em] text-chalk">
-                  Info
-                </p>
-                <ul className="space-y-2.5">
-                  {footerNav.map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        className="text-[15px] text-chalk hover:underline hover:underline-offset-4"
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <p className="mt-1 text-[14px] leading-relaxed text-chalk">
+                Live online yoga with {siteConfig.teacherName}, 300-hour certified.
+              </p>
             </div>
           </div>
 
-          <p className="mt-12 border-t border-chalk/25 pt-6 text-[13px] text-chalk">
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-8 gap-y-2.5 text-[15px] sm:grid-cols-3">
+            {[...primaryNav, footerNav[0]].map((item) => (
+              <Link key={item.href} href={item.href} className="link-draw w-fit text-chalk">
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <a
+            href={whatsappHref()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="lift inline-flex w-fit items-center rounded-sm bg-chalk px-5 py-3 font-display text-[14px] font-semibold uppercase tracking-[0.12em] text-deep hover:bg-beige"
+          >
+            WhatsApp {siteConfig.whatsappDisplay}
+          </a>
+        </div>
+
+        <div className="mt-9 flex flex-wrap items-center justify-between gap-3 border-t border-chalk/25 pt-5 text-[13px] text-chalk">
+          <p>
             © {new Date().getFullYear()} {siteConfig.name}. All sessions online.
+          </p>
+          <p className="flex gap-5">
+            {footerNav.slice(1).map((item) => (
+              <Link key={item.href} href={item.href} className="link-draw">
+                {item.label}
+              </Link>
+            ))}
           </p>
         </div>
       </div>

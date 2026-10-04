@@ -130,10 +130,13 @@ export function Nav() {
       </a>
 
       {/* Desktop / tablet top bar */}
-      <header className="sticky top-0 z-40 hidden border-b border-ink/10 bg-chalk/95 backdrop-blur md:block">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-6 py-2 lg:px-8">
-          <Link href="/" aria-label="Tat Sat Yoga — home">
-            <Logo eager className="h-20" />
+      <header
+        className="nav-elevate sticky top-0 z-40 hidden border-b border-ink/10 bg-chalk/85 backdrop-blur-xl backdrop-saturate-150 md:block"
+        style={{ viewTransitionName: "site-header" }}
+      >
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-5 px-6 py-1.5 lg:px-8">
+          <Link href="/" aria-label="Tat Sat Yoga — home" className="transition-opacity hover:opacity-80">
+            <Logo eager className="h-16" />
           </Link>
           <nav aria-label="Primary" className="flex items-center gap-5 lg:gap-8">
             {primaryNav.map((item) => (
@@ -141,10 +144,8 @@ export function Nav() {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                className={`whitespace-nowrap border-b py-1 font-display text-[15px] font-semibold uppercase tracking-[0.14em] transition-colors ${
-                  isActive(pathname, item.href)
-                    ? "border-primary text-primary"
-                    : "border-transparent text-ink hover:border-ink/40"
+                className={`link-draw whitespace-nowrap pb-0.5 font-display text-[15px] font-semibold uppercase tracking-[0.14em] transition-colors duration-300 ${
+                  isActive(pathname, item.href) ? "text-primary" : "text-ink hover:text-primary"
                 }`}
               >
                 {item.label}
@@ -157,7 +158,7 @@ export function Nav() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Chat on WhatsApp"
-              className="flex items-center gap-2 whitespace-nowrap rounded-sm border border-ink/20 px-3 py-2.5 font-display text-[14px] font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:border-primary hover:text-primary lg:px-3.5"
+              className="lift flex items-center gap-2 whitespace-nowrap rounded-sm border border-ink/20 px-3 py-2.5 font-display text-[14px] font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:border-primary hover:text-primary lg:px-3.5"
             >
               <WhatsAppIcon className="h-4.5 w-4.5" />
               <span className="hidden lg:inline">WhatsApp</span>
@@ -173,10 +174,13 @@ export function Nav() {
       </header>
 
       {/* Mobile top bar: wordmark + menu + WhatsApp */}
-      <header className="sticky top-0 z-40 border-b border-ink/10 bg-chalk/95 backdrop-blur md:hidden">
-        <div className="flex items-center justify-between px-5 py-2">
+      <header
+        className="nav-elevate sticky top-0 z-40 border-b border-ink/10 bg-chalk/85 backdrop-blur-xl backdrop-saturate-150 md:hidden"
+        style={{ viewTransitionName: "site-header-mobile" }}
+      >
+        <div className="flex items-center justify-between px-5 py-1.5">
           <Link href="/" aria-label="Tat Sat Yoga — home">
-            <Logo eager className="h-14" />
+            <Logo eager className="h-12" />
           </Link>
           <div className="flex items-center gap-2">
             <a
@@ -202,11 +206,11 @@ export function Nav() {
         </div>
 
         {menuOpen && (
-          <div id="mobile-menu" className="border-t border-ink/10 bg-chalk px-5 py-4">
-            <ul className="space-y-3">
+          <div id="mobile-menu" className="menu-pop border-t border-ink/10 bg-chalk px-5 py-3">
+            <ul className="divide-y divide-ink/10">
               {menuLinks.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="font-display text-[16px] font-semibold uppercase tracking-[0.14em] text-ink hover:text-primary">
+                  <Link href={item.href} className="block py-3 font-display text-[16px] font-semibold uppercase tracking-[0.14em] text-ink hover:text-primary">
                     {item.label}
                   </Link>
                 </li>
@@ -219,6 +223,7 @@ export function Nav() {
       {/* Mobile bottom tab bar, with a raised Free Trial action in the centre */}
       <nav
         aria-label="Primary"
+        style={{ viewTransitionName: "site-tabbar" }}
         className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 items-end border-t border-ink/10 bg-chalk/95 pb-[max(0.6rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur md:hidden"
       >
         {mobileTabs.slice(0, 2).map((item) => {
@@ -244,7 +249,7 @@ export function Nav() {
           className="flex flex-col items-center gap-1"
           aria-label="Book your free trial"
         >
-          <span className="-mt-7 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-chalk shadow-lg ring-4 ring-chalk">
+          <span className="-mt-7 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-chalk shadow-lg ring-4 ring-chalk transition-transform duration-300 active:scale-95">
             <TrialIcon className="h-6 w-6" />
           </span>
           <span className="text-[11px] font-medium text-primary">Free Trial</span>

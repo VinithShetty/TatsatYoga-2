@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
+import { PageHeader } from "@/components/PageHeader";
 import { whatsappHref } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -53,37 +54,31 @@ export default function FaqPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <section className="pt-12 pb-8 sm:pt-16">
-        <Container className="max-w-2xl">
-          <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
-            FAQ
-          </p>
-          <h1 className="text-[3.25rem] font-semibold leading-[1.0] text-ink sm:text-[4.25rem]">
-            Questions, answered
-          </h1>
-        </Container>
-      </section>
+      <PageHeader eyebrow="FAQ" title="Questions," script="answered." />
 
-      <section className="pb-16 sm:pb-20">
-        <Container className="max-w-2xl divide-y divide-deep/10 border-y border-deep/15">
+      <section className="py-8 sm:py-12">
+        <Container className="stagger max-w-3xl divide-y divide-ink/10">
           {faqs.map((faq) => (
-            <details key={faq.q} className="group py-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-lg text-ink">
+            <details key={faq.q} className="smooth group py-1">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-4 font-display text-[1.25rem] font-semibold text-ink transition-colors hover:text-primary [&::-webkit-details-marker]:hidden">
                 {faq.q}
-                <span className="text-gold transition-transform group-open:rotate-45">+</span>
+                <span aria-hidden="true" className="flex h-8 w-8 flex-none items-center justify-center rounded-full border border-ink/15 text-lg leading-none text-primary transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-open:rotate-45">+</span>
               </summary>
-              <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{faq.a}</p>
+              <p className="max-w-2xl pb-5 text-[15.5px] leading-relaxed text-ink-soft">{faq.a}</p>
             </details>
           ))}
         </Container>
       </section>
 
-      <section className="border-t border-deep/10 bg-beige py-16 text-center sm:py-20">
-        <Container className="max-w-lg">
-          <h2 className="font-display text-[2.125rem] font-semibold text-ink sm:text-[2.75rem]">
+      <section className="bg-beige py-12 text-center sm:py-16">
+        <Container className="reveal max-w-lg">
+          <h2 className="text-[2.125rem] font-semibold leading-[1.08] text-ink sm:text-[2.75rem]">
             Still have a question?
           </h2>
-          <div className="mt-7 flex justify-center">
+          <p className="mt-3 text-[15.5px] leading-relaxed text-ink">
+            Ask on WhatsApp — you&rsquo;ll usually hear back the same day.
+          </p>
+          <div className="mt-6 flex justify-center">
             <Button href={whatsappHref()} variant="outline">
               Chat on WhatsApp
             </Button>

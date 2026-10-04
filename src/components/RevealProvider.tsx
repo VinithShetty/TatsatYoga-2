@@ -7,7 +7,7 @@ export function RevealProvider() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const nodes = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
+    const nodes = Array.from(document.querySelectorAll<HTMLElement>(".reveal, .stagger"));
     if (nodes.length === 0) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -25,7 +25,7 @@ export function RevealProvider() {
           }
         });
       },
-      { rootMargin: "0px 0px 15% 0px", threshold: 0.01 },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.01 },
     );
 
     nodes.forEach((node) => observer.observe(node));

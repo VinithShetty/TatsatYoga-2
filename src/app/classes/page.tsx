@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
+import { Eyebrow } from "@/components/Eyebrow";
 import { FinalCta } from "@/components/FinalCta";
+import { PageHeader } from "@/components/PageHeader";
 import { classFormats, whatsappHref, yogaForms } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -14,30 +16,22 @@ export const metadata: Metadata = {
 export default function ClassesPage() {
   return (
     <>
-      <section className="pt-12 pb-8 sm:pt-16">
-        <Container className="max-w-2xl">
-          <p className="mb-5 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
-            Class Details
-          </p>
-          <h1 className="text-[3.25rem] font-semibold leading-[1.0] text-ink sm:text-[4.25rem]">
-            Sessions &amp; pricing
-          </h1>
-          <p className="mt-5 text-[17px] leading-[1.75] text-ink-soft">
-            Three kinds of live online session, priced monthly. No joining fee, no
-            lock-in — and every one starts with a free trial class.
-          </p>
-        </Container>
-      </section>
+      <PageHeader
+        eyebrow="Class details"
+        title="Sessions &"
+        script="pricing."
+        lead="Three kinds of live online session, priced monthly. No joining fee, no lock-in — and every one starts with a free trial class."
+      />
 
       {/* Types of sessions, with pricing */}
-      <section id="pricing" className="scroll-mt-28 pb-16 sm:pb-20">
-        <Container className="grid gap-7 lg:grid-cols-3">
+      <section id="pricing" className="scroll-mt-24 py-10 sm:py-14">
+        <Container className="stagger grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {classFormats.map((format) => (
             <div
               key={format.slug}
-              className="card-lift flex flex-col rounded-lg border border-deep/10 bg-chalk p-7"
+              className="card-lift flex flex-col rounded-lg border border-ink/10 bg-chalk p-6 sm:p-7"
             >
-              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-gold">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-primary-hover">
                 {format.duration} session
               </p>
               <h2 className="mt-2 font-display text-2xl font-semibold text-ink">
@@ -47,16 +41,16 @@ export default function ClassesPage() {
                 {format.description}
               </p>
 
-              <dl className="mt-6 divide-y divide-deep/10 border-y border-deep/10">
+              <dl className="mt-5 divide-y divide-ink/10 border-y border-ink/10">
                 {format.pricing.map((tier) => (
-                  <div key={tier.schedule} className="flex items-baseline justify-between py-3.5">
+                  <div key={tier.schedule} className="flex items-baseline justify-between py-3">
                     <dt className="text-sm text-ink-soft">{tier.schedule}</dt>
-                    <dd className="font-display text-xl font-medium text-ink">{tier.price}</dd>
+                    <dd className="font-display text-xl font-semibold text-ink">{tier.price}</dd>
                   </div>
                 ))}
               </dl>
 
-              <div className="mt-6 flex flex-col gap-3">
+              <div className="mt-5 flex flex-col gap-3">
                 <Button
                   href={whatsappHref(`Hi! I'd like to book a free trial for ${format.name}.`)}
                   variant="primary"
@@ -67,7 +61,7 @@ export default function ClassesPage() {
                 </Button>
                 <Link
                   href={`/classes/${format.slug}`}
-                  className="arrow-parent text-center text-sm font-medium text-primary hover:text-primary-hover"
+                  className="arrow-parent text-center text-sm font-semibold text-primary-hover hover:text-deep"
                 >
                   What a session looks like <span className="arrow">→</span>
                 </Link>
@@ -76,31 +70,29 @@ export default function ClassesPage() {
           ))}
         </Container>
         <Container>
-          <p className="mt-6 text-center text-sm text-ink-faint">
+          <p className="mt-5 text-center text-sm text-ink-faint">
             All prices per month. Every plan begins with one free trial session.
           </p>
         </Container>
       </section>
 
       {/* Yoga forms practised */}
-      <section className="border-y border-deep/10 bg-beige py-16 sm:py-20">
+      <section className="bg-beige py-14 sm:py-20">
         <Container>
-          <div className="max-w-2xl">
-            <p className="mb-4 text-[12px] font-semibold uppercase tracking-[0.2em] text-deep">
-              In every session
-            </p>
+          <div className="reveal max-w-2xl">
+            <Eyebrow tone="deep">In every session</Eyebrow>
             <h2 className="text-[2.125rem] font-semibold text-ink sm:text-[2.5rem]">
               Yoga forms practised
             </h2>
           </div>
 
-          <ul className="mt-10 divide-y divide-deep/10 border-y border-deep/10">
+          <ul className="stagger mt-7 divide-y divide-deep/15 border-y border-deep/15">
             {yogaForms.map((form) => (
               <li
                 key={form.name}
-                className="grid gap-3 py-6 md:grid-cols-[0.8fr_1.5fr_1fr] md:items-baseline md:gap-10"
+                className="grid gap-2 py-5 md:grid-cols-[0.8fr_1.5fr_1fr] md:items-baseline md:gap-10"
               >
-                <h3 className="font-display text-[1.375rem] font-medium text-ink">
+                <h3 className="font-display text-[1.375rem] font-semibold text-ink">
                   {form.name}
                 </h3>
                 <p className="text-[15.5px] leading-relaxed text-ink-soft">{form.description}</p>

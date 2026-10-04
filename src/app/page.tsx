@@ -1,7 +1,7 @@
-import Image from "next/image";
-import type { ReactNode } from "react";
+import Image, { getImageProps } from "next/image";
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
+import { Eyebrow } from "@/components/Eyebrow";
 import { Photo } from "@/components/Photo";
 import { Testimonials } from "@/components/Testimonials";
 import {
@@ -29,51 +29,55 @@ function TickIcon() {
   );
 }
 
-/** Small bold sans label above a heading, as in the reference layout. */
-function Eyebrow({
-  children,
-  onDark = false,
-  className = "",
-}: {
-  children: ReactNode;
-  onDark?: boolean;
-  className?: string;
-}) {
+/**
+ * One <picture> for the hero: the wide crop on desktop, the tall crop on
+ * phones. Unlike two separately hidden images, only one file is downloaded.
+ */
+function HeroPicture() {
+  const alt = "Mohini Rai in a seated twist on a yoga mat beside a still lake, misty hills behind";
+  const { props: wide } = getImageProps({
+    alt,
+    src: "/images/hero-lakeside-wide.webp",
+    width: 1440,
+    height: 860,
+    sizes: "66vw",
+  });
+  const { props: tall } = getImageProps({
+    alt,
+    src: "/images/hero-lakeside-tall.webp",
+    width: 900,
+    height: 1124,
+    sizes: "100vw",
+    loading: "eager",
+    fetchPriority: "high",
+  });
+  const { srcSet: tallSrcSet, ...img } = tall;
+
   return (
-    <p
-      className={`mb-4 text-[12px] font-semibold uppercase tracking-[0.2em] ${
-        onDark ? "text-chalk" : "text-primary-hover"
-      } ${className}`}
-    >
-      {children}
-    </p>
+    <picture>
+      <source media="(min-width: 768px)" srcSet={wide.srcSet ?? wide.src} sizes="66vw" />
+      <source srcSet={tallSrcSet ?? tall.src} sizes="100vw" />
+      <img
+        {...img}
+        alt={alt}
+        className="settle absolute inset-0 h-full w-full object-cover object-bottom md:object-[45%_50%]"
+      />
+    </picture>
   );
 }
 
 export default function HomePage() {
   return (
     <>
-      {/* Hero — full-bleed photo, text over the open lake / sky */}
+      {/* Hero — photo on the right (desktop) or below the copy (phone) */}
       <section className="relative isolate overflow-hidden bg-parchment">
-        {/* Desktop: wide crop, pinned to the right so the pose stays clear of the text */}
-        <div className="absolute inset-y-0 right-0 -z-10 hidden w-[66%] md:block">
-          <Image
-            src="/images/hero-lakeside-wide.webp"
-            alt="Mohini Rai in a seated twist on a yoga mat beside a still lake, misty hills behind"
-            fill
-            sizes="66vw"
-            className="object-cover object-[45%_50%]"
-            loading="eager"
-            fetchPriority="high"
-          />
-        </div>
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-parchment from-34% via-parchment/70 via-48% to-transparent to-62% md:block"
+          className="absolute inset-0 -z-[5] hidden bg-gradient-to-r from-parchment from-34% via-parchment/70 via-48% to-transparent to-62% md:block"
         />
 
-        <Container className="relative flex flex-col pt-10 pb-8 md:min-h-[640px] md:justify-center md:py-20 lg:min-h-[700px]">
-          <div className="max-w-[34rem]">
+        <Container className="relative flex flex-col pt-9 pb-6 md:min-h-[600px] md:justify-center md:py-16 lg:min-h-[640px]">
+          <div className="rise rise-after-title max-w-[34rem]">
             <Eyebrow>Online yoga with {siteConfig.teacherName}</Eyebrow>
             <h1 className="hero-title text-[2.5rem] font-semibold leading-[1] text-ink sm:text-[3.25rem] lg:text-[4rem]">
               <span>Yoga</span> <span>that</span> <span>meets</span> <span>you</span>{" "}
@@ -81,14 +85,14 @@ export default function HomePage() {
                 where you are.
               </span>
             </h1>
-            <p className="mt-5 font-display text-[1.375rem] font-medium italic leading-snug text-ink sm:text-[1.625rem]">
+            <p className="mt-4 font-display text-[1.375rem] font-medium italic leading-snug text-ink sm:text-[1.625rem]">
               Move better. Feel stronger. Breathe deeper.
             </p>
-            <p className="mt-4 max-w-md text-[16px] leading-[1.7] text-ink-soft">
+            <p className="mt-3 max-w-md text-[16px] leading-[1.7] text-ink-soft">
               Beginner-friendly Hatha, Vinyasa &amp; Yin Yoga classes designed to build
               strength, flexibility, mobility and a deeper connection with your body.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap gap-3">
               <Button
                 href="/classes"
                 variant="primary"
@@ -108,48 +112,43 @@ export default function HomePage() {
           </div>
         </Container>
 
-        {/* Mobile: tall crop below the copy; its sky fades into the background */}
-        <div className="relative -z-10 -mt-28 aspect-[4/5] md:hidden">
-          <Image
-            src="/images/hero-lakeside-tall.webp"
-            alt="Mohini Rai in a seated twist on a yoga mat beside a still lake, misty hills behind"
-            fill
-            sizes="100vw"
-            className="object-cover"
-            loading="eager"
-            fetchPriority="high"
-          />
+        {/* Phone: block below the copy, its sky fading into the background.
+            Desktop: pinned to the right two-thirds, behind the text veil. */}
+        <div className="relative -z-10 -mt-20 aspect-[1/1] overflow-hidden md:absolute md:inset-y-0 md:right-0 md:mt-0 md:aspect-auto md:w-[66%]">
+          <HeroPicture />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-b from-parchment via-parchment/40 via-25% to-transparent to-45%"
+            className="absolute inset-0 bg-gradient-to-b from-parchment via-parchment/30 via-20% to-transparent to-40% md:hidden"
           />
         </div>
       </section>
 
       {/* More than just a workout — sage band, centred */}
-      <section className="bg-beige py-16 sm:py-24">
-        <Container className="reveal !max-w-4xl text-center">
-          <Eyebrow className="!text-deep">The practice</Eyebrow>
-          <h2 className="text-[2.25rem] font-semibold leading-[1.08] text-ink sm:text-[3.25rem]">
-            More than just a workout.
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl font-display text-[1.3rem] font-medium italic leading-[1.5] text-ink sm:text-[1.45rem]">
-            Yoga is not about forcing your body into a shape. It is about learning to
-            understand, move and connect with it.
-          </p>
-          <p className="mx-auto mt-4 max-w-xl text-[16px] leading-[1.75] text-ink">
-            Classes combine mindful movement, breathwork and awareness to support a
-            stronger, healthier and more balanced you.
-          </p>
+      <section className="bg-beige py-14 sm:py-20">
+        <Container className="max-w-4xl text-center">
+          <div className="reveal">
+            <Eyebrow tone="deep">The practice</Eyebrow>
+            <h2 className="text-[2.25rem] font-semibold leading-[1.08] text-ink sm:text-[3.25rem]">
+              More than just a workout.
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl font-display text-[1.3rem] font-medium italic leading-[1.5] text-ink sm:text-[1.45rem]">
+              Yoga is not about forcing your body into a shape. It is about learning to
+              understand, move and connect with it.
+            </p>
+            <p className="mx-auto mt-3 max-w-xl text-[16px] leading-[1.75] text-ink">
+              Classes combine mindful movement, breathwork and awareness to support a
+              stronger, healthier and more balanced you.
+            </p>
+          </div>
 
-          <p className="mt-12 font-display text-[15px] font-semibold uppercase tracking-[0.16em] text-deep">
+          <h3 className="mt-10 font-display text-[15px] font-semibold uppercase tracking-[0.16em] text-deep">
             What the practice builds
-          </p>
-          <ul className="mt-5 flex flex-wrap justify-center gap-2.5">
+          </h3>
+          <ul className="stagger mt-4 flex flex-wrap justify-center gap-2">
             {benefits.map((benefit) => (
               <li
                 key={benefit}
-                className="rounded-sm bg-chalk px-4 py-2.5 text-[14px] font-medium text-ink"
+                className="rounded-sm bg-chalk/80 px-3.5 py-2 text-[14px] font-medium text-ink"
               >
                 {benefit}
               </li>
@@ -159,31 +158,33 @@ export default function HomePage() {
       </section>
 
       {/* Your practice, your pace — script-titled story block beside a portrait */}
-      <section className="py-16 sm:py-24">
-        <Container className="grid items-center gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-20">
+      <section className="py-14 sm:py-20">
+        <Container className="grid items-center gap-8 md:grid-cols-[0.85fr_1.15fr] md:gap-16">
           <Photo
             src="/images/meditation-temple-doorway.webp"
             alt="Mohini Rai seated in meditation before a carved stone temple doorway"
-            className="reveal"
+            aspect="aspect-[4/3] md:aspect-[4/5]"
+            position="object-[50%_62%]"
+            sizes="(min-width: 768px) 42vw, 100vw"
           />
           <div className="reveal">
             <Eyebrow>For everyone</Eyebrow>
             <h2 className="text-[2.25rem] font-semibold leading-[1.05] text-ink sm:text-[3rem]">
-              Your practice. Your pace.
+              Your practice. Your pace.{" "}
               <span className="script mt-1 block text-[3.25rem] leading-[1.1] text-primary sm:text-[4.25rem]">
                 Your journey.
               </span>
             </h2>
-            <p className="mt-6 text-[16.5px] leading-[1.8] text-ink-soft">
+            <p className="mt-5 text-[16.5px] leading-[1.75] text-ink-soft">
               Whether you&rsquo;re a beginner, looking to build strength and flexibility,
               or simply seeking a little more balance in your everyday life &mdash;
               there&rsquo;s a place for you here.
             </p>
-            <p className="mt-4 text-[16.5px] leading-[1.8] text-ink-soft">
+            <p className="mt-3 text-[16.5px] leading-[1.75] text-ink-soft">
               Every class is taught live by {siteConfig.teacherName}, a 300-hour certified
               teacher trained at Vinyasa Yogashram, Rishikesh.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap gap-3">
               <Button href="/about" variant="outline">
                 Meet {siteConfig.teacherFirstName}
               </Button>
@@ -196,24 +197,24 @@ export default function HomePage() {
       </section>
 
       {/* Yoga is for you if… — rounded sage panel */}
-      <section className="pb-16 sm:pb-24">
+      <section className="pb-14 sm:pb-20">
         <Container>
-          <div className="reveal rounded-lg bg-beige px-6 py-12 sm:px-12 sm:py-16">
-            <div className="text-center">
-              <Eyebrow className="!text-deep">Who it&rsquo;s for</Eyebrow>
+          <div className="rounded-lg bg-beige px-4 py-10 sm:px-10 sm:py-14">
+            <div className="reveal text-center">
+              <Eyebrow tone="deep">Who it&rsquo;s for</Eyebrow>
               <h2 className="text-[2.25rem] font-semibold leading-[1.08] text-ink sm:text-[3rem]">
                 Yoga is for you if&hellip;
               </h2>
             </div>
-            <ol className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <ol className="stagger mt-8 grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
               {yogaIsForYouIf.map((line, i) => (
                 <li
                   key={line}
-                  className="card-lift flex gap-4 rounded-md bg-chalk p-5 text-[15.5px] leading-[1.6] text-ink sm:p-6"
+                  className="card-lift flex items-start gap-3.5 rounded-md bg-chalk px-4 py-3.5 text-[15.5px] leading-[1.55] text-ink sm:gap-4 sm:p-5"
                 >
                   <span
                     aria-hidden="true"
-                    className="font-display text-[1.75rem] font-semibold leading-none text-primary"
+                    className="font-display text-[1.5rem] font-semibold leading-none text-primary sm:text-[1.75rem]"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -226,7 +227,7 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="border-t border-ink/10 bg-parchment py-16 sm:py-24">
+      <section className="border-t border-ink/10 bg-parchment py-14 sm:py-20">
         <Container>
           <div className="reveal text-center">
             <Eyebrow>Testimonials</Eyebrow>
@@ -234,35 +235,35 @@ export default function HomePage() {
               In their words
             </h2>
           </div>
-          <div className="reveal mt-12">
+          <div className="reveal mt-8 sm:mt-10">
             <Testimonials video={testimonials.video} written={testimonials.written} />
           </div>
         </Container>
       </section>
 
       {/* Start with a free trial — dark photo banner */}
-      <section className="relative isolate overflow-hidden py-20 sm:py-28">
+      <section className="relative isolate overflow-hidden py-16 sm:py-24">
         <Image
           src="/images/banner-garden-wide.webp"
           alt=""
           fill
           sizes="100vw"
-          className="-z-10 object-cover object-[50%_30%]"
+          className="parallax -z-10 object-cover object-[50%_30%]"
         />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-deep/80" />
-        <Container className="reveal !max-w-3xl text-center">
-          <Eyebrow onDark>Start with a free trial</Eyebrow>
+        <Container className="reveal max-w-3xl text-center">
+          <Eyebrow tone="light">Start with a free trial</Eyebrow>
           <h2 className="text-[2.25rem] font-semibold leading-[1.05] text-chalk sm:text-[3.5rem]">
-            Your first class
+            Your first class{" "}
             <span className="script mt-1 block text-[3.5rem] leading-[1.1] sm:text-[5rem]">
               is free.
             </span>
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-[16.5px] leading-[1.75] text-chalk">
+          <p className="mx-auto mt-4 max-w-xl text-[16.5px] leading-[1.75] text-chalk">
             Not a sales call — a real, full-length session. Try the teaching style, ask
             whatever you want to ask, and decide afterwards whether it fits.
           </p>
-          <ul className="mx-auto mt-7 grid max-w-md gap-3 text-left">
+          <ul className="mx-auto mt-6 grid max-w-md gap-2.5 text-left">
             <li className="flex gap-3 text-[15px] text-chalk">
               <TickIcon />
               No card details, no commitment
@@ -276,7 +277,7 @@ export default function HomePage() {
               Beginners genuinely welcome — most students start here
             </li>
           </ul>
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button
               href="/classes"
               variant="cream"

@@ -97,98 +97,255 @@ summary:focus-visible {
   outline-offset: 3px;
 }
 
-/* ---- motion system ---- */
-
-/*
- * Only hide reveal content when scripting is available to un-hide it.
- * Browsers without `scripting` support ignore the block, so content stays
- * visible — the safe failure direction. Without this guard, a JS failure
- * leaves every section below the hero permanently blank.
+/* ---- motion system ----
+ * Restrained, Apple-style motion: short distances, long ease-out curves,
+ * opacity before position. Everything here is progressive enhancement:
+ * content is only hidden when scripting can reveal it, and
+ * prefers-reduced-motion switches all of it off.
  */
+
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  interpolate-size: allow-keywords;
+}
+
+/* Scroll reveal: a block fades up once. */
 @media (scripting: enabled) {
   .reveal {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(24px);
     transition:
-      opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
-      transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+      opacity 0.9s var(--ease-out),
+      transform 0.9s var(--ease-out);
   }
 
   .reveal.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
+  }
+
+  /*
+   * Staggered reveal: children arrive one after another. It is an animation
+   * with `backwards` fill, so once it ends the children's own hover
+   * transforms (card-lift) behave normally.
+   */
+  .stagger > * {
+    opacity: 0;
+  }
+
+  .stagger.is-visible > * {
+    opacity: 1;
+    animation: rise 0.8s var(--ease-out) backwards;
   }
 }
 
+.stagger.is-visible > :nth-child(2) { animation-delay: 60ms; }
+.stagger.is-visible > :nth-child(3) { animation-delay: 120ms; }
+.stagger.is-visible > :nth-child(4) { animation-delay: 180ms; }
+.stagger.is-visible > :nth-child(5) { animation-delay: 240ms; }
+.stagger.is-visible > :nth-child(6) { animation-delay: 300ms; }
+.stagger.is-visible > :nth-child(7) { animation-delay: 360ms; }
+.stagger.is-visible > :nth-child(8) { animation-delay: 420ms; }
+.stagger.is-visible > :nth-child(9) { animation-delay: 480ms; }
+.stagger.is-visible > :nth-child(n + 10) { animation-delay: 540ms; }
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+/* Page-load entrance for page headers and hero copy (needs no JS). */
+.rise > * {
+  animation: rise 0.9s var(--ease-out) backwards;
+}
+
+.rise > :nth-child(2) { animation-delay: 80ms; }
+.rise > :nth-child(3) { animation-delay: 160ms; }
+.rise > :nth-child(4) { animation-delay: 240ms; }
+.rise > :nth-child(5) { animation-delay: 320ms; }
+.rise > :nth-child(6) { animation-delay: 400ms; }
+
+/* The hero h1 animates word by word instead, so its siblings wait for it. */
+.rise > .hero-title { animation: none; }
+.rise-after-title > :nth-child(3) { animation-delay: 0.55s; }
+.rise-after-title > :nth-child(4) { animation-delay: 0.65s; }
+.rise-after-title > :nth-child(5) { animation-delay: 0.75s; }
+
+/* Hero photo settles from a slight zoom as the page opens. */
+.settle {
+  animation: settle 2.4s var(--ease-out) both;
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.06);
+  }
+}
+
+/*
+ * Scroll-linked motion where animation-timeline is supported: photos ease
+ * out of a gentle zoom as they scroll in, banner backgrounds drift slower
+ * than the page, and the header gains a hairline and shadow once scrolled.
+ */
+@supports (animation-timeline: view()) {
+  .photo-in {
+    animation: photo-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+
+  .parallax {
+    animation: parallax linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+
+  .nav-elevate {
+    animation: nav-elevate linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 120px;
+  }
+}
+
+@keyframes photo-in {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes parallax {
+  from {
+    transform: translateY(-7%) scale(1.16);
+  }
+  to {
+    transform: translateY(7%) scale(1.16);
+  }
+}
+
+@keyframes nav-elevate {
+  from {
+    box-shadow: 0 0 0 rgba(20, 23, 20, 0);
+    border-color: transparent;
+  }
+  to {
+    box-shadow: 0 8px 30px rgba(20, 23, 20, 0.07);
+    border-color: rgba(20, 23, 20, 0.08);
+  }
+}
+
+/* ---- interactive affordances ---- */
+
 .lift {
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease;
+    transform 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out),
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .lift:hover {
   transform: translateY(-2px);
 }
 
+.lift:active {
+  transform: scale(0.98);
+  transition-duration: 0.1s;
+}
+
 .card-lift {
   transition:
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
+    box-shadow 0.45s var(--ease-out),
+    transform 0.45s var(--ease-out);
 }
 
 .card-lift:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(51, 64, 31, 0.1);
-}
-
-.zoomwrap {
-  overflow: hidden;
-}
-
-.zoomwrap .zoom {
-  transition: transform 0.6s ease;
-}
-
-.card-lift:hover .zoomwrap .zoom {
-  transform: scale(1.06);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(20, 23, 20, 0.08);
 }
 
 .arrow {
   display: inline-block;
-  transition: transform 0.25s ease;
+  transition: transform 0.35s var(--ease-out);
 }
 
-.group\/view:hover .arrow,
 .arrow-parent:hover .arrow {
   transform: translateX(5px);
 }
 
-/* ---- hero headline: staggered entrance + slow colour shimmer ---- */
-
-.hero-title span {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(0.35em);
-  animation: word-rise 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+/* Underline that draws in from the left. */
+.link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.4s var(--ease-out);
 }
 
-.hero-title span:nth-child(1) { animation-delay: 0.05s; }
-.hero-title span:nth-child(2) { animation-delay: 0.15s; }
-.hero-title span:nth-child(3) { animation-delay: 0.25s; }
-.hero-title span:nth-child(4) { animation-delay: 0.35s; }
-.hero-title span:nth-child(5) { animation-delay: 0.45s; }
+.link-draw:hover,
+.link-draw[aria-current="page"] {
+  background-size: 100% 1px;
+}
+
+/* FAQ answers open smoothly where ::details-content is supported. */
+@supports selector(::details-content) {
+  details.smooth::details-content {
+    block-size: 0;
+    overflow: clip;
+    opacity: 0;
+    transition:
+      block-size 0.45s var(--ease-out),
+      opacity 0.35s ease,
+      content-visibility 0.45s allow-discrete;
+  }
+
+  details.smooth[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+}
+
+/* Mobile menu eases down when it opens. */
+.menu-pop {
+  transition:
+    opacity 0.3s var(--ease-out),
+    transform 0.3s var(--ease-out);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+/* ---- hero headline: word-by-word entrance + slow colour shimmer ---- */
+
+.hero-title > span {
+  display: inline-block;
+  animation: word-rise 1s var(--ease-out) backwards;
+}
+
+.hero-title > span:nth-child(1) { animation-delay: 0.08s; }
+.hero-title > span:nth-child(2) { animation-delay: 0.16s; }
+.hero-title > span:nth-child(3) { animation-delay: 0.24s; }
+.hero-title > span:nth-child(4) { animation-delay: 0.32s; }
+.hero-title > span:nth-child(5) { animation-delay: 0.44s; }
 
 @keyframes word-rise {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  from {
+    opacity: 0;
+    transform: translateY(0.3em);
+    filter: blur(6px);
   }
 }
 
 /*
- * Gradient fill is applied only where background-clip:text is supported.
- * Elsewhere the headline keeps its solid --color-ink, so it is never invisible.
+ * The gradient fill applies only where background-clip:text is supported.
+ * Elsewhere the script line keeps its solid colour, so it never disappears.
  */
 @supports (background-clip: text) or (-webkit-background-clip: text) {
   .hero-title .shimmer {
@@ -208,8 +365,8 @@ summary:focus-visible {
     background-clip: text;
     color: transparent;
     animation:
-      word-rise 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) forwards,
-      shimmer 9s ease-in-out 1.2s infinite;
+      word-rise 1s var(--ease-out) 0.44s backwards,
+      shimmer 10s ease-in-out 1.6s infinite;
   }
 }
 
@@ -223,20 +380,53 @@ summary:focus-visible {
   }
 }
 
-.breathe {
-  animation: breathe 7s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
+/* ---- page transitions: React <ViewTransition>, see app/template.tsx ---- */
+
+::view-transition {
+  pointer-events: none;
 }
 
-@keyframes breathe {
-  0%,
-  100% {
-    transform: scale(1);
+::view-transition-old(.page) {
+  animation: 180ms ease-in both page-out;
+}
+
+::view-transition-new(.page) {
+  animation: 460ms var(--ease-out) 120ms both page-in;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    filter: blur(3px);
   }
-  50% {
-    transform: scale(1.035);
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(3px);
   }
+}
+
+/* Header and tab bar stay put while the page content changes. */
+::view-transition-group(site-header),
+::view-transition-group(site-header-mobile),
+::view-transition-group(site-tabbar) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header),
+::view-transition-old(site-header-mobile),
+::view-transition-old(site-tabbar) {
+  display: none;
+}
+
+::view-transition-new(site-header),
+::view-transition-new(site-header-mobile),
+::view-transition-new(site-tabbar) {
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -244,21 +434,30 @@ summary:focus-visible {
     scroll-behavior: auto;
   }
 
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
   }
 
-  .breathe {
+  .reveal,
+  .stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .photo-in,
+  .settle {
     animation: none !important;
   }
 
-  .hero-title span,
-  .hero-title .shimmer {
-    opacity: 1 !important;
-    transform: none !important;
+  .parallax {
     animation: none !important;
+    transform: scale(1.16);
   }
 
   .hero-title .shimmer {
@@ -266,19 +465,9 @@ summary:focus-visible {
     color: var(--color-primary) !important;
   }
 
-  .arrow,
-  .card-lift,
-  .lift {
-    transition: none !important;
-  }
-
   .card-lift:hover,
-  .lift:hover {
-    transform: none;
-    box-shadow: none;
-  }
-
-  .card-lift:hover .zoomwrap .zoom,
+  .lift:hover,
+  .lift:active,
   .arrow-parent:hover .arrow {
     transform: none;
   }

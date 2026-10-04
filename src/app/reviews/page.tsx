@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
-import { FinalCta } from "@/components/FinalCta";
+import { PageHeader } from "@/components/PageHeader";
 import { siteConfig, whatsappHref } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -12,23 +12,14 @@ export const metadata: Metadata = {
 export default function ReviewsPage() {
   return (
     <>
-      <section className="pt-12 pb-8 sm:pt-16">
-        <Container className="max-w-2xl">
-          <p className="mb-5 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
-            Reviews
-          </p>
-          <h1 className="text-[3.25rem] font-semibold leading-[1.0] text-ink sm:text-[4.25rem]">
-            What students say
-          </h1>
-        </Container>
-      </section>
+      <PageHeader eyebrow="Reviews" title="What students" script="say." />
 
-      <section className="pb-16 sm:pb-20">
-        <Container className="max-w-2xl">
-          <div className="rounded-lg border border-deep/10 bg-chalk p-10 text-center sm:p-14">
+      <section className="py-10 sm:py-14">
+        <Container className="reveal max-w-2xl">
+          <div className="rounded-lg border border-ink/10 bg-chalk px-6 py-9 text-center sm:px-12 sm:py-11">
             <svg
               viewBox="0 0 200 200"
-              className="mx-auto h-16 w-16 text-primary/25"
+              className="mx-auto h-12 w-12 text-primary/30"
               aria-hidden="true"
             >
               <circle
@@ -45,7 +36,7 @@ export default function ReviewsPage() {
               <circle cx="100" cy="100" r="15" fill="currentColor" />
             </svg>
 
-            <h2 className="mt-7 font-display text-[1.75rem] font-semibold text-ink sm:text-[2rem]">
+            <h2 className="mt-5 font-display text-[1.75rem] font-semibold text-ink sm:text-[2rem]">
               No reviews here yet
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[16px] leading-[1.75] text-ink-soft">
@@ -58,7 +49,7 @@ export default function ReviewsPage() {
               anyone else&rsquo;s word for it.
             </p>
 
-            <div className="mt-9 flex flex-wrap justify-center gap-4">
+            <div className="mt-7 flex flex-wrap justify-center gap-3">
               <Button
                 href="/classes"
                 variant="primary"
@@ -78,14 +69,13 @@ export default function ReviewsPage() {
             </div>
           </div>
 
-          <p className="mt-8 text-center text-[13px] leading-relaxed text-ink-faint">
+          <p className="mt-5 text-center text-[13px] leading-relaxed text-ink-faint">
             Reviews will be student-submitted and approved before they appear, so
             everything on this page stays real.
           </p>
         </Container>
       </section>
 
-      <FinalCta heading="Judge it for yourself, free." />
     </>
   );
 }

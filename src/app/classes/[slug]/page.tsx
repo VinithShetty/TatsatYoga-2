@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
+import { Eyebrow } from "@/components/Eyebrow";
 import { FinalCta } from "@/components/FinalCta";
 import { Photo } from "@/components/Photo";
 import { classFormats, whatsappHref } from "@/lib/site-config";
@@ -31,68 +32,70 @@ export default async function ClassFormatPage({
 
   return (
     <>
-      <section className="pt-12 pb-14 sm:pt-16 sm:pb-18">
-        <Container className="grid items-start gap-12 md:grid-cols-2">
-          <div>
-            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
+      <section className="bg-parchment py-10 sm:py-14">
+        <Container className="grid items-center gap-8 md:grid-cols-[1.15fr_0.85fr] md:gap-14">
+          <div className="rise">
+            <Eyebrow>
               {format.duration} · {format.keyword}
-            </p>
-            <h1 className="text-[3.25rem] font-semibold leading-[1.0] text-ink sm:text-[4.25rem]">{format.name}</h1>
-            <p className="mt-5 text-[17px] leading-relaxed text-ink-soft">
-              {format.description}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            </Eyebrow>
+            <h1 className="text-[2.5rem] font-semibold leading-[1.02] text-ink sm:text-[3.5rem]">
+              {format.name}
+            </h1>
+            <p className="mt-4 text-[17px] leading-[1.7] text-ink-soft">{format.description}</p>
+            <div className="mt-7 flex flex-wrap gap-3">
               <Button
                 href={whatsappHref(`Hi! I'd like to book a free trial for ${format.name}.`)}
                 variant="primary"
               >
                 Book Free Trial
               </Button>
-              <Button href={whatsappHref()} variant="outline">
-                Chat on WhatsApp
+              <Button href="#pricing" variant="outline">
+                See Pricing
               </Button>
             </div>
           </div>
-          <Photo src="/images/reverse-prayer-garden.webp" alt="A yoga practitioner kneeling on a block-printed mat in a flowering garden, hands joined in reverse prayer" eager />
+          <Photo
+            src="/images/reverse-prayer-garden.webp"
+            alt="Mohini Rai kneeling on a block-printed mat in a flowering garden, hands joined in reverse prayer"
+            aspect="aspect-[4/3] md:aspect-[4/5]"
+            position="object-[50%_30%]"
+            sizes="(min-width: 768px) 38vw, 100vw"
+            eager
+          />
         </Container>
       </section>
 
-      <section className="border-t border-deep/10 bg-beige py-16 sm:py-20">
-        <Container className="grid gap-10 md:grid-cols-2">
-          <div>
-            <h2 className="font-display text-2xl text-ink">Is this the right fit?</h2>
-            <ul className="mt-5 space-y-3">
+      <section className="py-12 sm:py-16">
+        <Container className="stagger grid gap-5 md:grid-cols-3 md:gap-6">
+          <div className="rounded-lg bg-beige p-6 sm:p-7">
+            <h2 className="font-display text-2xl font-semibold text-ink">Is this the right fit?</h2>
+            <ul className="mt-4 space-y-2.5">
               {format.whoFor.map((point) => (
-                <li key={point} className="flex gap-3 text-[15px] leading-relaxed text-ink-soft">
-                  <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gold" />
+                <li key={point} className="flex gap-3 text-[15px] leading-relaxed text-ink">
+                  <span className="mt-2.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
                   {point}
                 </li>
               ))}
             </ul>
           </div>
-          <div>
-            <h2 className="font-display text-2xl text-ink">What a session looks like</h2>
-            <p className="mt-5 text-[15px] leading-relaxed text-ink-soft">
-              {format.sessionLooksLike}
+          <div className="rounded-lg bg-beige p-6 sm:p-7">
+            <h2 className="font-display text-2xl font-semibold text-ink">What a session looks like</h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-ink">{format.sessionLooksLike}</p>
+          </div>
+          <div id="pricing" className="scroll-mt-24 rounded-lg border border-ink/10 bg-chalk p-6 sm:p-7">
+            <h2 className="font-display text-2xl font-semibold text-ink">Pricing</h2>
+            <dl className="mt-3 divide-y divide-ink/10">
+              {format.pricing.map((tier) => (
+                <div key={tier.schedule} className="flex items-baseline justify-between py-3">
+                  <dt className="text-sm text-ink-soft">{tier.schedule}</dt>
+                  <dd className="font-display text-xl font-semibold text-ink">{tier.price}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-3 text-sm text-ink-faint">
+              Per month. Every plan includes one free trial session first.
             </p>
           </div>
-        </Container>
-      </section>
-
-      <section className="py-16 sm:py-20">
-        <Container className="max-w-md">
-          <h2 className="font-display text-2xl text-ink">Pricing</h2>
-          <dl className="mt-6 divide-y divide-deep/10 rounded-lg border border-deep/15 bg-chalk">
-            {format.pricing.map((tier) => (
-              <div key={tier.schedule} className="flex items-center justify-between px-6 py-4">
-                <dt className="text-sm text-ink-soft">{tier.schedule}</dt>
-                <dd className="font-display text-lg text-ink">{tier.price}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="mt-4 text-sm text-ink-faint">
-            Every plan includes one free trial session first.
-          </p>
         </Container>
       </section>
 

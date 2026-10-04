@@ -1,3 +1,4 @@
+import { Button } from "@/components/Button";
 import type { Testimonial } from "@/lib/site-config";
 
 function initials(name: string) {
@@ -27,21 +28,9 @@ function Attribution({ t }: { t: Testimonial }) {
   );
 }
 
-function AwaitingSlot({ kind }: { kind: "video" | "written" }) {
-  return (
-    <div className="flex h-full min-h-56 flex-col items-center justify-center rounded-md border border-dashed border-ink/25 bg-chalk p-8 text-center">
-      <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-ink-faint">
-        {kind === "video" ? "Video testimonial" : "Student testimonial"}
-      </span>
-      <span className="mt-2 text-sm text-ink-faint">Coming soon</span>
-    </div>
-  );
-}
-
 function VideoTestimonial({ t }: { t: Testimonial }) {
   const v = t.video ?? {};
-  if (!v.src && !v.youtubeId) return <AwaitingSlot kind="video" />;
-  return (
+    return (
     <figure className="flex h-full flex-col">
       <div className="overflow-hidden rounded-md bg-deep">
         {v.youtubeId ? (
@@ -71,7 +60,6 @@ function VideoTestimonial({ t }: { t: Testimonial }) {
 }
 
 function WrittenTestimonial({ t }: { t: Testimonial }) {
-  if (!t.quote) return <AwaitingSlot kind="written" />;
   return (
     <figure className="flex h-full flex-col rounded-md bg-chalk p-7 shadow-[0_8px_30px_rgba(20,23,20,0.06)] sm:p-8">
       <svg viewBox="0 0 24 24" className="h-7 w-7 text-primary" fill="currentColor" aria-hidden="true">
@@ -87,6 +75,12 @@ function WrittenTestimonial({ t }: { t: Testimonial }) {
   );
 }
 
+const hasVideo = (t: Testimonial) => Boolean(t.video?.src || t.video?.youtubeId);
+
+/**
+ * Shows whichever testimonials exist. Until the first ones arrive it renders a
+ * single compact note instead of a wall of empty "coming soon" boxes.
+ */
 export function Testimonials({
   video,
   written,
@@ -94,14 +88,48 @@ export function Testimonials({
   video: Testimonial;
   written: Testimonial[];
 }) {
-  return (
-    <div className="grid gap-6 md:grid-cols-[0.9fr_1.1fr]">
-      <VideoTestimonial t={video} />
-      <div className="grid gap-6">
-        {written.map((t, i) => (
+  const quotes = written.filter((t) => t.quote);
+  const showVideo = hasVideo(video);
+
+  if (!showVideo && quotes.length === 0) {
+    return (
+      <div className="mx-auto flex max-w-3xl flex-col items-center gap-5 rounded-lg border border-dashed border-ink/20 bg-chalk px-6 py-8 text-center sm:flex-row sm:justify-between sm:px-9 sm:text-left">
+        <div>
+          <p className="font-display text-[1.375rem] font-semibold italic leading-snug text-ink">
+            Student stories are on their way.
+          </p>
+          <p className="mt-1.5 max-w-md text-[15px] leading-relaxed text-ink-soft">
+            Every review here will be real. Until the first ones arrive, your first
+            class is free — so you can judge for yourself.
+          </p>
+        </div>
+        <Button href="/classes" variant="primary" className="flex-none" ariaLabel="Try a free class and judge for yourself">
+          Try a Free Class
+        </Button>
+      </div>
+    );
+  }
+
+  if (!showVideo) {
+    return (
+      <div className="stagger grid gap-6 md:grid-cols-2">
+        {quotes.map((t, i) => (
           <WrittenTestimonial key={t.name || i} t={t} />
         ))}
       </div>
+    );
+  }
+
+  return (
+    <div className={`grid gap-6 ${quotes.length ? "md:grid-cols-[0.9fr_1.1fr]" : "mx-auto max-w-sm"}`}>
+      <VideoTestimonial t={video} />
+      {quotes.length > 0 && (
+        <div className="stagger grid gap-6">
+          {quotes.map((t, i) => (
+            <WrittenTestimonial key={t.name || i} t={t} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
